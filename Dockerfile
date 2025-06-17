@@ -28,5 +28,8 @@ COPY . /var/www/html/
 # Da permisos correctos
 RUN chown -R www-data:www-data /var/www/html
 
-# Expone el puerto por defecto de Apache
-EXPOSE 80
+# Usar el puerto definido por Railway
+ENV PORT=8080
+RUN sed -i "s/80/\${PORT}/g" /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
+
+EXPOSE ${PORT}
