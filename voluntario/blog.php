@@ -109,8 +109,6 @@ if (isset($blog['creado_por'])) {
       height: auto;
       object-fit: contain;
     }
-
-    
   </style>
 </head>
 
@@ -174,7 +172,7 @@ if (isset($blog['creado_por'])) {
                 <?php foreach ($imagenes as $index => $img): ?>
                   <div class="carousel-item">
                     <a href="/voluntariado/<?php echo htmlspecialchars($img); ?>" data-lightbox="blog-<?php echo $blog['_id']; ?>" data-title="<?php echo htmlspecialchars($blog['titulo']); ?>">
-                      <img src="/voluntariado/<?php echo htmlspecialchars($img); ?>" alt="Imagen blog">
+                      <img src="/<?php echo htmlspecialchars($img); ?>" alt="Imagen blog">
                     </a>
                   </div>
                 <?php endforeach; ?>
