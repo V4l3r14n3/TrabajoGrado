@@ -28,8 +28,9 @@ COPY . /var/www/html/
 # Da permisos correctos
 RUN chown -R www-data:www-data /var/www/html
 
-# Usar el puerto definido por Railway
-ENV PORT=8080
-RUN sed -i "s/80/\${PORT}/g" /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
+# Copia el script de inicio
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
-EXPOSE ${PORT}
+# Apache escuchará en el puerto definido por Railway
+CMD ["/start.sh"]
