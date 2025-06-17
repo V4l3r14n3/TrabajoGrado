@@ -45,10 +45,10 @@ $oportunidades = $database->oportunidades->find([
 
     <div class="perfil-header">
       <?php
-      $fotoPerfil = "/uploads/" . htmlspecialchars($org['foto_perfil']);
-      if (!file_exists($_SERVER['DOCUMENT_ROOT'] . $fotoPerfil) || empty($org['foto_perfil'])) {
-        $fotoPerfil = "/img/default_org.png"; // Imagen por defecto si no existe
-      }
+      $fotoPerfil = !empty($org['foto_perfil']) && file_exists($_SERVER['DOCUMENT_ROOT'] . "/uploads/" . $org['foto_perfil'])
+        ? "/uploads/" . htmlspecialchars($org['foto_perfil'])
+        : "/img/default_org.png";
+
       ?>
       <img src="<?= $fotoPerfil ?>" alt="Logo de la organización">
       <div>
