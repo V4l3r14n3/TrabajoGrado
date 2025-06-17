@@ -1,0 +1,47 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f9f9f9;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h2 {
+    text-align: center;
+    margin: 40px 0 20px;
+    color: #333;
+  }
+  
+  .lista-notis {
+    list-style: none;
+    padding: 0;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .lista-notis li {
+    background: #fff;
+    border-left: 5px solid #009688;
+    margin-bottom: 15px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    transition: transform 0.2s;
+  }
+  
+  .lista-notis li:hover {
+    transform: scale(1.02);
+  }
+  
+  .lista-notis p {
+    margin: 0;
+    font-size: 16px;
+    color: #444;
+  }
+  
+  .lista-notis small {
+    display: block;
+    margin-top: 8px;
+    font-size: 13px;
+    color: #888;
+  }
+  

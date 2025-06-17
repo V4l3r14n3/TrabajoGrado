@@ -1,0 +1,150 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #d894b9, #4b6cb7);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+/* Animación de entrada para el contenedor de recuperar contraseña */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.recover-container {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    width: 350px;
+    text-align: center;
+    position: relative;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Animación para los inputs */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease-in-out forwards;
+}
+
+.input-container:nth-child(1) { animation-delay: 0.3s; }
+.input-container:nth-child(2) { animation-delay: 0.5s; }
+
+.input-container i {
+    font-size: 18px;
+    padding: 10px;
+    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px 0 0 8px;
+}
+
+.input-container input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    width: 100%;
+    background: none;
+    color: white;
+}
+
+.input-container input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Animación de los mensajes de error y éxito */
+@keyframes fadeInMessage {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.success-message, .error-message {
+    opacity: 0;
+    animation: fadeInMessage 0.8s ease-in-out forwards;
+}
+
+.recover-box {
+    padding-top: 50px;
+}
+
+.recover-button {
+    background: #1e3c72;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease-in-out;
+}
+
+.recover-button:hover {
+    background: #162a55;
+    transform: scale(1.05);
+}
+
+.back-login-button {
+    background: transparent;
+    color: #1e3c72;
+    border: 2px solid #1e3c72;
+    padding: 10px;
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: transform 0.2s ease-in-out;
+    margin-top: 10px;
+}
+
+.back-login-button:hover {
+    background: #1e3c72;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Opciones debajo del formulario */
+.options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 15px;
+    color: white;
+}
+

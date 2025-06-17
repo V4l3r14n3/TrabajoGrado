@@ -1,0 +1,218 @@
+/* Estilos Generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+header {
+    background-color: #007bff;
+    padding: 15px;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Hero Section */
+.hero {
+    background: url('../img/voluntariado.jpg') center/cover no-repeat;
+    text-align: center;
+    color: white;
+    padding: 80px 20px;
+}
+
+.hero h1 {
+    font-size: 2.5em;
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.btn {
+    background-color: #ffcc00;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+/* Objetivos y Funcionalidades */
+.objetivos, .funcionalidades {
+    text-align: center;
+    padding: 40px 0;
+}
+
+h2 {
+    font-size: 2em;
+    color: #007bff;
+}
+
+.objetivos-grid, .funcionalidades-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 280px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+/* Tabs */
+.tab-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.tab-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 0 5px;
+    border-radius: 5px;
+}
+
+.tab-btn.active {
+    background-color: #0056b3;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Footer */
+footer {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: 20px;
+}
+
+/* Info Volunteero */
+.info-volunteero {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 40px 20px;
+    margin: 40px auto;
+    max-width: 900px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.info-volunteero .mascota {
+    font-size: 3em;
+    margin-bottom: 10px;
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.info-volunteero h1 {
+    font-size: 2em;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.info-volunteero .justificacion {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #333;
+    padding: 0 10px;
+}
+
+.mision-vision {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .mision-vision {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+.mision-vision .card {
+    background-color: #e9f5ff;
+    padding: 25px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.mision-vision .card:hover {
+    transform: translateY(-5px);
+}
+
+.mision-vision h2 {
+    color: #0056b3;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.mision-vision p {
+    font-size: 1em;
+    color: #444;
+    line-height: 1.
+}
+/* Valores */
+.valores {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #f1f9ff;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.valores ul {
+    list-style: none;
+    padding: 0;
+    font-size: 1.1em;
+    line-height: 2;
+    color: #333;
+}

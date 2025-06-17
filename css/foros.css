@@ -1,0 +1,166 @@
+/* Estilos generales del foro */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #eef1f7;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2.text-center {
+    text-align: center;
+    color: #0077cc;
+    margin-bottom: 25px;
+}
+
+/* Mensajes */
+.message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left: 6px solid #28a745;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left: 6px solid #dc3545;
+}
+
+/* Formulario del foro */
+.foro-form label {
+    font-weight: bold;
+    color: #0077cc;
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 6px;
+}
+
+.foro-form input,
+.foro-form select,
+.foro-form textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.foro-form input:focus,
+.foro-form select:focus,
+.foro-form textarea:focus {
+    border-color: #0077cc;
+    background-color: white;
+    outline: none;
+}
+
+.foro-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* Botón */
+.foro-form button {
+    margin-top: 20px;
+    width: 100%;
+    background-color: #28a745;
+    color: white;
+    padding: 12px;
+    border: none;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.foro-form button:hover {
+    background-color: #218838;
+}
+
+/* Lista de publicaciones */
+.publicaciones {
+    margin-top: 40px;
+}
+
+.publicacion {
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    border-left: 6px solid #0077cc;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+}
+
+.publicacion:hover {
+    transform: scale(1.01);
+}
+
+.publicacion h4 {
+    color: #0077cc;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.publicacion small {
+    color: #777;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.publicacion p {
+    font-size: 16px;
+    color: #444;
+}
+/* Respuestas */
+.respuesta-form textarea {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 2px solid #ccc;
+    background-color: #f0f4f8;
+    resize: vertical;
+    min-height: 120px;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.respuesta-form textarea:focus {
+    border-color: #0077cc;
+    background-color: white;
+    outline: none;
+}
+
+.respuesta-form button {
+    margin-top: 12px;
+    padding: 10px 20px;
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.respuesta-form button:hover {
+    background-color: #005fa3;
+}

@@ -1,0 +1,220 @@
+/* Estilos generales */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #eef1f7;
+    color: #333;
+}
+
+/* Contenedor principal */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+h2.text-center {
+    text-align: center;
+    font-size: 24px;
+    color: #0077cc;
+    margin-bottom: 20px;
+}
+
+/* Sección de perfil */
+.profile-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+/* Formularios de perfil */
+.profile-form {
+    flex: 1;
+    min-width: 300px;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s ease;
+}
+
+.profile-form h4 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #333;
+    border-left: 5px solid #0077cc;
+    padding-left: 10px;
+}
+
+.profile-form label {
+    display: block;
+    font-weight: 600;
+    margin: 12px 0 6px;
+    color: #0077cc;
+}
+
+.profile-form input,
+.profile-form select,
+.profile-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1.8px solid #cfd8dc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.profile-form input:focus,
+.profile-form select:focus,
+.profile-form textarea:focus {
+    border-color: #0077cc;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 119, 204, 0.15);
+    outline: none;
+}
+
+.profile-form button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 14px;
+    background: #0077cc;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.profile-form button:hover {
+    background: #005fa3;
+}
+
+
+/* Sección de oportunidades */
+.opportunities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.opportunity {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: calc(33.33% - 20px);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.opportunity:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.opportunity h4 {
+    color: #0077cc;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.opportunity p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+/* Botón de detalles */
+.btn-detalle {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 12px 18px;
+    background-color: #0077cc;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.btn-detalle:hover {
+    background-color: #005fa3;
+}
+
+/* Mensajes de éxito y error */
+.alert {
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.alert.success {
+    background: #d4edda;
+    color: #155724;
+    border-left: 5px solid #28a745;
+}
+
+.alert.error {
+    background: #f8d7da;
+    color: #721c24;
+    border-left: 5px solid #dc3545;
+}
+
+/* Profile pic */
+.profile-pic {
+    text-align: center;
+    flex: 0 0 180px;
+    margin: auto;
+}
+
+.profile-pic img {
+    border-radius: 50%;
+    border: 3px solid #4a90e2;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.profile-pic form input[type="file"] {
+    display: block;
+    margin: 10px auto;
+}
+
+.profile-pic button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.profile-pic button:hover {
+    background-color: #3b7dc0;
+}
+
+
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .profile-section {
+        flex-direction: column;
+    }
+    .opportunity {
+        width: 100%;
+    }
+}

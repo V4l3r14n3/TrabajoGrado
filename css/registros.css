@@ -1,0 +1,273 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Contenedor del registro */
+.registro-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 380px;
+    text-align: center;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Icono del usuario */
+.avatar {
+    font-size: 55px;
+    color: #2575fc;
+    margin-bottom: 12px;
+}
+
+/* Títulos */
+h2 {
+    color: #333;
+    margin-bottom: 18px;
+    font-weight: bold;
+}
+
+/* Contenedor de los inputs */
+.input-container {
+    display: flex;
+    align-items: center;
+    background: #f2f2f2;
+    border-radius: 10px;
+    padding: 12px;
+    margin: 12px 0;
+}
+
+.input-container i {
+    color: #2575fc;
+    margin-right: 12px;
+}
+
+.input-container input {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+}
+
+/* Botón de registro */
+.registro-button {
+    background: #2575fc;
+    color: white;
+    border: none;
+    padding: 14px;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.registro-button:hover {
+    background: #1d5dc4;
+    transform: scale(1.05);
+}
+
+/* Mensajes de éxito y error */
+.success-message {
+    background: #28a745;
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.error-message {
+    background: #dc3545;
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+/* Link de redirección */
+p {
+    margin-top: 18px;
+    font-size: 15px;
+}
+
+p a {
+    color: #2575fc;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
+
+/* Opciones extras */
+.terms-container {
+    font-size: 14px;
+    margin: 10px 0;
+    color: #555;
+}
+
+.terms-container input {
+    margin-right: 5px;
+}
+
+/* Estilo para el combobox (select) */
+.select-container {
+    display: flex;
+    align-items: center;
+    background: #f2f2f2;
+    border-radius: 10px;
+    padding: 12px;
+    margin: 12px 0;
+    cursor: pointer;
+}
+
+.select-container i {
+    color: #2575fc;
+    margin-right: 12px;
+}
+
+.select-container select {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+    appearance: none; /* Oculta la flecha por defecto */
+}
+
+/* Estilo para la flecha del combobox */
+.select-container::after {
+    content: '\f078'; /* Código de FontAwesome para flecha */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: #2575fc;
+    margin-left: auto;
+}
+
+/* Contenedor con ícono para grupo de checkboxes */
+/* Grupo de checkboxes (Intereses) */
+.checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    background: #f2f2f2;
+    border-radius: 10px;
+    padding: 16px;
+    margin: 12px 0;
+}
+
+.checkbox-container i {
+    color: #2575fc;
+    margin-right: 12px;
+    font-size: 20px;
+    margin-top: 5px;
+}
+
+.checkbox-group {
+    width: 100%;
+}
+
+.checkbox-label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 6px;
+    display: block;
+    font-size: 16px;
+}
+
+.checkbox-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas */
+    gap: 10px 12px;
+}
+
+.checkbox-options label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #444;
+    background-color: #f3f3f3;
+    border-radius: 6px;
+    padding: 6px 10px;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.checkbox-options label:hover {
+    background-color: #e0e8ff;
+}
+
+.checkbox-options input[type="checkbox"] {
+    margin-right: 6px;
+    accent-color: #2575fc;
+    transition: transform 0.2s ease;
+}
+
+/* Animación cuando se marca */
+.checkbox-options input[type="checkbox"]:checked {
+    transform: scale(1.3);
+    animation: pulseCheckbox 0.25s ease-in-out;
+}
+
+/* Keyframe de animación */
+@keyframes pulseCheckbox {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1.2); }
+}
+
+#voluntario-fields, #organizacion-fields {
+    visibility: hidden;
+    position: absolute;
+    left: -9999px;
+}
+
+#voluntario-fields.active, #organizacion-fields.active {
+    visibility: visible;
+    position: static;
+}
+
+/* Modal consentimiento  */
+.modal-consentimiento {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.modal-contenido {
+    background-color: white;
+    margin: 5% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 700px;
+    border-radius: 10px;
+    max-height: 90vh;
+    overflow-y: auto;
+}

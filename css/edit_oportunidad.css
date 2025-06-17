@@ -1,0 +1,174 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+
+
+/* Contenedor principal */
+.container {
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+}
+.centrar-contenido {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 60px); /* ajusta si el navbar tiene otra altura */
+    padding-top: 20px; /* para dejar espacio si el navbar es fijo */
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Mensajes de alerta */
+.alert {
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.alert.error {
+    background: #ffcccc;
+    color: #a00;
+    border: 1px solid #a00;
+}
+
+/* Formularios */
+label {
+    display: block;
+    font-weight: bold;
+    margin: 12px 0 5px;
+    color: #555;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    border-color: #0077cc;
+    outline: none;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Estilos generales para los selects */
+select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Efecto al pasar el mouse */
+select:hover {
+    border-color: #007bff;
+}
+
+/* Estilo cuando el select está enfocado */
+select:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 91, 187, 0.5);
+}
+
+/* Estilos para los options */
+select option {
+    background-color: #fff;
+    color: #333;
+    padding: 10px;
+}
+
+/* Botón */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #28a745;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #218838;
+}
+
+.btn-regresar {
+    display: block; /* Asegura que se comporte igual que el botón */
+    width: 100%;
+    padding: 12px; /* Igual que el botón */
+    background: #6c757d; /* Color gris elegante */
+    border: none; /* Sin bordes para igualar */
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px; /* Igual que el botón */
+    transition: background 0.3s ease-in-out;
+}
+
+.btn-regresar:hover {
+    background: #5a6268; /* Efecto hover */
+}
+
+
+
+/* Responsividad */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    select {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
