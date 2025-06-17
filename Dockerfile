@@ -1,12 +1,23 @@
 FROM php:8.2-apache
 
-# Instala extensiones necesarias (como MongoDB)
-RUN apt-get update && apt-get install -y libssl-dev pkg-config && \
+# Instalar dependencias para MongoDB
+RUN apt-get update && apt-get install -y \
+    libssl-dev pkg-config unzip git curl && \
     pecl install mongodb && \
     docker-php-ext-enable mongodb
 
-# Copia el código fuente al contenedor
+# Instalar Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Copiar archivos del proyecto
 COPY . /var/www/html/
 
-# Configura Apache
+# Establecer permisos y limpiar
+RUN chown -R www-data:www-data /var/www/html
+
+# Puerto expuesto
 EXPOSE 80
+
+# Instalar dependencias PHP (Composer)
+WORKDIR /var/www/html
+RUN composer install
