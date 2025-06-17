@@ -32,5 +32,5 @@ RUN chown -R www-data:www-data /var/www/html
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-# Apache escuchará en el puerto definido por Railway
+# Usa el script de inicio como comando
 CMD ["/start.sh"]

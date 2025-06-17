@@ -1,17 +1,18 @@
 #!/bin/bash
 
-# Verifica si PORT está definido
+echo "Valor recibido de \$PORT: $PORT"
+
+# Verifica si la variable PORT está definida
 if [ -z "$PORT" ]; then
-  echo "ERROR: La variable PORT no está definida."
+  echo "ERROR: La variable de entorno PORT no está definida."
   exit 1
 fi
 
-# Reescribe puertos en Apache
-echo "Escuchando en el puerto: $PORT"
-echo "Listen ${PORT}" > /etc/apache2/ports.conf
+# Crea configuración personalizada de Apache con el puerto de Railway
+echo "Listen $PORT" > /etc/apache2/ports.conf
 
 cat <<EOF > /etc/apache2/sites-available/000-default.conf
-<VirtualHost *:${PORT}>
+<VirtualHost *:$PORT>
     DocumentRoot /var/www/html
 
     <Directory /var/www/html>
@@ -26,4 +27,4 @@ cat <<EOF > /etc/apache2/sites-available/000-default.conf
 EOF
 
 # Inicia Apache
-apache2-foreground
+exec apache2-foreground
