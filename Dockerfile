@@ -12,15 +12,20 @@ RUN apt-get update && apt-get install -y \
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copiar archivos del proyecto
-COPY . /var/www/html/
+# Crear directorio de trabajo
+WORKDIR /var/www/html
+
+# Copiar solo composer.json y composer.lock primero (mejora uso de caché)
+COPY composer.json composer.lock ./
+
+# Instalar dependencias PHP
+RUN composer install --no-dev --ignore-platform-reqs
+
+# Copiar el resto del proyecto
+COPY . .
 
 # Establecer permisos
 RUN chown -R www-data:www-data /var/www/html
 
 # Puerto expuesto
 EXPOSE 80
-
-# Instalar dependencias PHP (Composer)
-WORKDIR /var/www/html
-RUN composer install --no-dev --ignore-platform-reqs
