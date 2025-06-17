@@ -10,3 +10,7 @@ function mostrarSeccion(id) {
     document.getElementById(id).classList.add('active');
     document.querySelector(`button[onclick="mostrarSeccion('${id}')"]`).classList.add('active');
 }
+function toggleMenu() {
+    const menu = document.getElementById('menu');
+    menu.classList.toggle('show');
+}

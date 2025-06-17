@@ -26,7 +26,7 @@ if (!$voluntario || $voluntario['tipo_usuario'] !== 'voluntario') {
 }
 
 // Verificar foto de perfil
-$fotoPerfil = isset($voluntario['foto_perfil']) && !empty($voluntario['foto_perfil']) ? '../uploads/' . $voluntario['foto_perfil'] : '../img/default_user.png';
+$fotoPerfil = isset($voluntario['foto_perfil']) && !empty($voluntario['foto_perfil']) ? '../uploads/' . $voluntario['foto_perfil'] : '../img/perfil_default.png';
 
 // Contar asistencias reales desde 'postulaciones'
 $cantidad_asistencias = $database->postulaciones->countDocuments([
