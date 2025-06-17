@@ -47,7 +47,7 @@ $oportunidades = $database->oportunidades->find([
       <?php
       $fotoPerfil = !empty($org['foto_perfil']) && file_exists($_SERVER['DOCUMENT_ROOT'] . "/uploads/" . $org['foto_perfil'])
         ? "/uploads/" . htmlspecialchars($org['foto_perfil'])
-        : "/img/default_org.png";
+        : "/img/perfil_default.png";
 
       ?>
       <img src="<?= $fotoPerfil ?>" alt="Logo de la organización">
