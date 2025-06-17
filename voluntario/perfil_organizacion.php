@@ -45,9 +45,10 @@ $oportunidades = $database->oportunidades->find([
 
     <div class="perfil-header">
       <?php
-      $fotoPerfil = isset($org['foto_perfil']) && !empty($org['foto_perfil'])
-        ? "/voluntariado/uploads/" . htmlspecialchars($org['foto_perfil'])
-        : "/voluntariado/img/perfil_default.png"; // Ruta a imagen por defecto
+      $fotoPerfil = "/uploads/" . htmlspecialchars($org['foto_perfil']);
+      if (!file_exists($_SERVER['DOCUMENT_ROOT'] . $fotoPerfil) || empty($org['foto_perfil'])) {
+        $fotoPerfil = "/img/default_org.png"; // Imagen por defecto si no existe
+      }
       ?>
       <img src="<?= $fotoPerfil ?>" alt="Logo de la organización">
       <div>
