@@ -24,6 +24,9 @@ RUN composer install --no-dev --ignore-platform-reqs
 # Copiar el resto del proyecto
 COPY . .
 
+# Hacer pública la carpeta uploads para Apache
+RUN chmod -R 755 /var/www/html/uploads
+
 # Establecer permisos
 RUN chown -R www-data:www-data /var/www/html
 
