@@ -154,7 +154,7 @@ if (isset($blog['creado_por'])) {
           <?php if ($organizacion): ?>
             <div class="autor-blog" style="display: flex; align-items: center; gap: 10px;">
               <?php if (!empty($organizacion['foto_perfil'])): ?>
-                <img src="/voluntariado/uploads/<?= htmlspecialchars($organizacion['foto_perfil']) ?>" alt="Logo de <?= htmlspecialchars($organizacion['nombre']) ?>" style="width: 40px; height: 40px; border-radius: 50%;">
+                <img src="/uploads/<?= htmlspecialchars($organizacion['foto_perfil']) ?>" alt="Logo de <?= htmlspecialchars($organizacion['nombre']) ?>" style="width: 40px; height: 40px; border-radius: 50%;">
               <?php endif; ?>
               <p style="margin: 0;">
                 Publicado por:
