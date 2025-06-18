@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-    width: 80%;
+    width: 95%;
     margin: 20px auto;
     background: white;
     padding: 20px;
@@ -62,7 +62,7 @@ p {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: left;
-    white-space: nowrap;
+/* white-space: nowrap; */
 }
 
 .btn-submit {
