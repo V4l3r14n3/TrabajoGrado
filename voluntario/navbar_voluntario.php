@@ -210,7 +210,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario']['tipo_usuario'] === 'vol
             <img src="../img/logo.png" alt="Logo">
             <span class="site-name">Volunteero</span>
         </a>
-        <button class="menu-toggle" onclick="toggleMenu()">
+        <button class="menu-toggle" id="hamburguesa">
             <i class="fas fa-bars"></i>
         </button>
     </div>
@@ -244,7 +244,7 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario']['tipo_usuario'] === 'vol
 <!-- Script para menú hamburguesa -->
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const toggleBtn = document.querySelector('.menu-toggle');
+    const toggleBtn = document.getElementById('hamburguesa');
     const menu = document.getElementById('navMenu');
     
     if (toggleBtn && menu) {
