@@ -214,7 +214,7 @@ if (isset($_SESSION['usuario'])) {
             <img src="../img/logo.png" alt="Logo">
             <span class="site-name">Volunteero</span>
         </a>
-        <button class="menu-toggle" onclick="toggleMenu()">
+        <button class="menu-toggle" id="hamburguesa">
             <i class="fas fa-bars"></i>
         </button>
     </div>
@@ -252,8 +252,14 @@ if (isset($_SESSION['usuario'])) {
 </nav>
 
 <script>
-    function toggleMenu() {
-        const menu = document.getElementById('navMenu');
-        menu.classList.toggle('active');
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.getElementById('hamburguesa');
+    const menu = document.getElementById('navMenu');
+    
+    if (toggleBtn && menu) {
+        toggleBtn.addEventListener('click', () => {
+            menu.classList.toggle('active');
+        });
     }
+});
 </script>
