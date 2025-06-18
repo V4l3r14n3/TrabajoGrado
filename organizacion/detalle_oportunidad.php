@@ -146,77 +146,77 @@ unset($_SESSION['success_message'], $_SESSION['error_message']);
         <!-- Formulario para guardar asistencia -->
         <form action="marcar_asistencia.php" method="POST">
             <input type="hidden" name="id_oportunidad" value="<?php echo $oportunidad['_id']; ?>">
+            <div class="table-with-actions">
+                <div class="table-responsive">
+                    <table class="postulados-table">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Fecha de Postulación</th>
+                            <th>Asistió</th>
+                            <th>Eliminar</th>
+                        </tr>
 
-        <div class="table-responsive">
-            <table class="postulados-table">
-                <tr>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Fecha de Postulación</th>
-                    <th>Asistió</th>
-                    <th>Eliminar</th>
-                </tr>
+                        <?php foreach ($postulaciones as $postulacion):
+                            if (!isset($postulacion['id_usuario'])) continue;
 
-                <?php foreach ($postulaciones as $postulacion):
-                    if (!isset($postulacion['id_usuario'])) continue;
-
-                    try {
-                        $idUsuario = $postulacion['id_usuario'] instanceof MongoDB\BSON\ObjectId
-                            ? $postulacion['id_usuario']
-                            : new MongoDB\BSON\ObjectId((string)$postulacion['id_usuario']);
-                    } catch (Exception $e) {
-                        continue;
-                    }
-
-                    $usuario = $coleccionUsuarios->findOne(['_id' => $idUsuario]);
-
-                    if (!$usuario) continue;
-                ?>
-                    <tr>
-                        <td>
-                            <a href="perfil_voluntario.php?id=<?php echo $idUsuario; ?>">
-                                <?php echo htmlspecialchars($postulacion['nombre_usuario'] ?? 'Desconocido'); ?>
-                            </a>
-                        </td>
-                        <td><?php echo htmlspecialchars($postulacion['correo_usuario'] ?? 'Sin correo'); ?></td>
-                        <td>
-                            <?php
-                            if (isset($postulacion['fecha_postulacion']) && $postulacion['fecha_postulacion'] instanceof MongoDB\BSON\UTCDateTime) {
-                                echo $postulacion['fecha_postulacion']->toDateTime()->format('d-m-Y H:i');
-                            } else {
-                                echo 'Sin fecha';
+                            try {
+                                $idUsuario = $postulacion['id_usuario'] instanceof MongoDB\BSON\ObjectId
+                                    ? $postulacion['id_usuario']
+                                    : new MongoDB\BSON\ObjectId((string)$postulacion['id_usuario']);
+                            } catch (Exception $e) {
+                                continue;
                             }
-                            ?>
-                        </td>
-                        <td>
-                            <input type="checkbox" name="asistencia[<?php echo $postulacion['id_usuario']; ?>]" value="1"
-                                <?php echo isset($postulacion['asistio']) && $postulacion['asistio'] ? 'checked' : ''; ?>>
-                        </td>
-                        <td>
-                            <!-- Formulario de eliminación separado -->
-                            <button
-                                class="btn-delete"
-                                onclick="eliminarPostulacion('<?php echo $idUsuario; ?>', '<?php echo $oportunidad['_id']; ?>', this)">
-                                Eliminar
-                            </button>
+
+                            $usuario = $coleccionUsuarios->findOne(['_id' => $idUsuario]);
+
+                            if (!$usuario) continue;
+                        ?>
+                            <tr>
+                                <td>
+                                    <a href="perfil_voluntario.php?id=<?php echo $idUsuario; ?>">
+                                        <?php echo htmlspecialchars($postulacion['nombre_usuario'] ?? 'Desconocido'); ?>
+                                    </a>
+                                </td>
+                                <td><?php echo htmlspecialchars($postulacion['correo_usuario'] ?? 'Sin correo'); ?></td>
+                                <td>
+                                    <?php
+                                    if (isset($postulacion['fecha_postulacion']) && $postulacion['fecha_postulacion'] instanceof MongoDB\BSON\UTCDateTime) {
+                                        echo $postulacion['fecha_postulacion']->toDateTime()->format('d-m-Y H:i');
+                                    } else {
+                                        echo 'Sin fecha';
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <input type="checkbox" name="asistencia[<?php echo $postulacion['id_usuario']; ?>]" value="1"
+                                        <?php echo isset($postulacion['asistio']) && $postulacion['asistio'] ? 'checked' : ''; ?>>
+                                </td>
+                                <td>
+                                    <!-- Formulario de eliminación separado -->
+                                    <button
+                                        class="btn-delete"
+                                        onclick="eliminarPostulacion('<?php echo $idUsuario; ?>', '<?php echo $oportunidad['_id']; ?>', this)">
+                                        Eliminar
+                                    </button>
 
 
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>               
-        </div>
-            <button type="submit" class="btn-submit">Guardar Asistencia</button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
         </form>
-        <div class="download-buttons">
+        <div class="button-panel">
+            <button type="submit" class="btn-submit">Guardar Asistencia</button>
             <a href="descargar_asistencia_pdf.php?id=<?php echo $oportunidad['_id']; ?>" class="btn-download pdf" target="_blank">
-                <img src="../img/pdf.png" alt="PDF"> Descargar PDF
+                <img src="../img/pdf.png" alt="PDF"> PDF
             </a>
             <a href="descargar_asistencia_excel.php?id=<?php echo $oportunidad['_id']; ?>" class="btn-download excel" target="_blank">
-                <img src="../img/excel.png" alt="Excel"> Descargar Excel
+                <img src="../img/excel.png" alt="Excel"> Excel
             </a>
         </div>
-
+    </div>
 
     </div>
 
