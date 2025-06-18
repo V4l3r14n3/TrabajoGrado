@@ -53,6 +53,7 @@ unset($_SESSION['success_message'], $_SESSION['error_message']);
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($oportunidad['titulo']); ?></title>
     <link rel="stylesheet" href="../css/detalles_oportunidad.css">
     <style>

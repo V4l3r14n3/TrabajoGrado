@@ -152,3 +152,64 @@ p {
 .btn-download.excel:hover {
     background-color: #1e7e34;
 }
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .opportunity-detail {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .image img {
+        width: 100%;
+        height: auto;
+    }
+
+    .info h1 {
+        font-size: 22px;
+    }
+
+    .postulados-table th,
+    .postulados-table td {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .btn-submit {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .download-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-download {
+        justify-content: center;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    .btn-download img {
+        width: 16px;
+        height: 16px;
+    }
+
+    .postulados-table {
+        display: block;
+        overflow-x: auto;
+    }
+}
