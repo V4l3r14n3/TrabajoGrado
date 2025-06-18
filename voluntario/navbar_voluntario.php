@@ -153,9 +153,12 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario']['tipo_usuario'] === 'vol
     }
 
     @keyframes pulse {
-        0%, 100% {
+
+        0%,
+        100% {
             transform: scale(1);
         }
+
         50% {
             transform: scale(1.2);
         }
@@ -172,6 +175,10 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario']['tipo_usuario'] === 'vol
             flex-direction: column;
             width: 100%;
             margin-top: 10px;
+            z-index: 999;
+            background: linear-gradient(90deg, #005aa7, #86c7f3);
+            /* Para que tenga fondo */
+            border-radius: 0 0 12px 12px;
         }
 
         .nav-menu.active {
