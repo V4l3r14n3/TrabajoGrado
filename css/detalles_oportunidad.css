@@ -233,3 +233,14 @@ p {
         padding: 6px;
     }
 }
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.postulados-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    /* Remueve display: block */
+}

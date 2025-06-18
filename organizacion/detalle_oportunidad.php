@@ -143,13 +143,11 @@ unset($_SESSION['success_message'], $_SESSION['error_message']);
 
         <h2 class="postulados-title">Personas Postuladas</h2>
 
-        <!-- DEPURACIÓN: muestra las postulaciones en bruto (quitar después) -->
-        <!-- <pre><?php print_r($postulaciones); ?></pre> -->
-
         <!-- Formulario para guardar asistencia -->
         <form action="marcar_asistencia.php" method="POST">
             <input type="hidden" name="id_oportunidad" value="<?php echo $oportunidad['_id']; ?>">
 
+        <div class="table-responsive">
             <table class="postulados-table">
                 <tr>
                     <th>Nombre</th>
@@ -206,8 +204,8 @@ unset($_SESSION['success_message'], $_SESSION['error_message']);
                         </td>
                     </tr>
                 <?php endforeach; ?>
-            </table>
-
+            </table>               
+        </div>
             <button type="submit" class="btn-submit">Guardar Asistencia</button>
         </form>
         <div class="download-buttons">
