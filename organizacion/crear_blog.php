@@ -22,6 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Procesar imágenes
         if (!empty($_FILES['imagenes']['name'][0])) {
             $permitidos = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+            echo "<pre>";
+print_r($_FILES['imagenes']);
+echo "</pre>";
+exit;
             foreach ($_FILES['imagenes']['name'] as $key => $nombreArchivo) {
                 $rutaArchivo = "../uploads/" . basename($nombreArchivo);
                 $tipoArchivo = strtolower(pathinfo($rutaArchivo, PATHINFO_EXTENSION));
