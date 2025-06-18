@@ -21,26 +21,35 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } else {
         // Procesar imágenes
         if (!empty($_FILES['imagenes']['name'][0])) {
-            $permitidos = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
-            echo "<pre>";
-print_r($_FILES['imagenes']);
-echo "</pre>";
-exit;
-            foreach ($_FILES['imagenes']['name'] as $key => $nombreArchivo) {
-                $rutaArchivo = "../uploads/" . basename($nombreArchivo);
-                $tipoArchivo = strtolower(pathinfo($rutaArchivo, PATHINFO_EXTENSION));
+    $permitidos = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
-                if (in_array($tipoArchivo, $permitidos)) {
-                    if (move_uploaded_file($_FILES["imagenes"]["tmp_name"][$key], $rutaArchivo)) {
-                        $imagenes_paths[] = "uploads/" . $nombreArchivo;
-                    } else {
-                        $mensaje = "❌ Error al subir una de las imágenes.";
-                    }
-                } else {
-                    $mensaje = "❌ Tipo de imagen no permitido.";
-                }
-            }
+    foreach ($_FILES['imagenes']['name'] as $key => $nombreOriginal) {
+        $extension = strtolower(pathinfo($nombreOriginal, PATHINFO_EXTENSION));
+
+        if (!in_array($extension, $permitidos)) {
+            $mensaje = "❌ Tipo de archivo no permitido: $extension";
+            continue;
         }
+
+        $nombreSeguro = uniqid("img_", true) . '.' . $extension;
+        $rutaCarpeta = "../uploads/";
+        $rutaCompleta = $rutaCarpeta . $nombreSeguro;
+
+        // Verifica que la carpeta exista
+        if (!is_dir($rutaCarpeta)) {
+            mkdir($rutaCarpeta, 0755, true);
+        }
+
+        if (move_uploaded_file($_FILES['imagenes']['tmp_name'][$key], $rutaCompleta)) {
+            $imagenes_paths[] = "uploads/" . $nombreSeguro;
+        } else {
+            error_log("❌ No se pudo mover el archivo: " . $_FILES['imagenes']['tmp_name'][$key]);
+            error_log("Permisos carpeta: " . (is_writable($rutaCarpeta) ? "OK" : "No escribible"));
+            $mensaje = "❌ Error al subir una imagen: $nombreOriginal";
+        }
+    }
+}
+
 
         if (!$mensaje) {
             $nuevoBlog = [
