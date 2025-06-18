@@ -25,8 +25,18 @@ if (!$voluntario || $voluntario['tipo_usuario'] !== 'voluntario') {
     exit();
 }
 
-// Verificar foto de perfil
-$fotoPerfil = isset($voluntario['foto_perfil']) && !empty($voluntario['foto_perfil']) ? '../uploads/' . $voluntario['foto_perfil'] : '../img/default_user.png';
+// Foto de perfil con soporte para Cloudinary o local
+if (!empty($voluntario['foto_perfil'])) {
+    if (filter_var($voluntario['foto_perfil'], FILTER_VALIDATE_URL)) {
+        $fotoPerfil = $voluntario['foto_perfil']; // URL de Cloudinary
+    } elseif (file_exists(__DIR__ . '/../uploads/' . $voluntario['foto_perfil'])) {
+        $fotoPerfil = '../uploads/' . htmlspecialchars($voluntario['foto_perfil']); // Imagen local
+    } else {
+        $fotoPerfil = '../img/default_user.png'; // Imagen no encontrada
+    }
+} else {
+    $fotoPerfil = '../img/default_user.png'; // No tiene foto
+}
 
 // Contar asistencias reales desde 'postulaciones'
 $cantidad_asistencias = $database->postulaciones->countDocuments([

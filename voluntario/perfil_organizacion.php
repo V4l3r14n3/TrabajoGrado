@@ -25,7 +25,6 @@ if (!$org) {
 $oportunidades = $database->oportunidades->find([
   'creado_por' => new ObjectId($idOrg)
 ]);
-
 ?>
 
 <!DOCTYPE html>
@@ -46,11 +45,20 @@ $oportunidades = $database->oportunidades->find([
 
     <div class="perfil-header">
       <?php
-      $fotoPerfil = !empty($org['foto_perfil']) && file_exists($_SERVER['DOCUMENT_ROOT'] . "/uploads/" . $org['foto_perfil'])
-        ? "/uploads/" . htmlspecialchars($org['foto_perfil'])
-        : "/img/perfil_default.png";
-
+      // ✅ Mostrar foto desde Cloudinary, local o por defecto
+      if (!empty($org['foto_perfil'])) {
+          if (filter_var($org['foto_perfil'], FILTER_VALIDATE_URL)) {
+              $fotoPerfil = $org['foto_perfil']; // Cloudinary
+          } elseif (file_exists($_SERVER['DOCUMENT_ROOT'] . "/uploads/" . $org['foto_perfil'])) {
+              $fotoPerfil = "/uploads/" . htmlspecialchars($org['foto_perfil']); // Local
+          } else {
+              $fotoPerfil = "/img/perfil_default.png"; // No existe localmente
+          }
+      } else {
+          $fotoPerfil = "/img/perfil_default.png"; // No asignada
+      }
       ?>
+
       <img src="<?= $fotoPerfil ?>" alt="Logo de la organización">
       <div>
         <h2><?= htmlspecialchars($org['nombre']) ?></h2>
