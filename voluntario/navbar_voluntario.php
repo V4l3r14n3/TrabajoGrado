@@ -243,8 +243,14 @@ if (isset($_SESSION['usuario']) && $_SESSION['usuario']['tipo_usuario'] === 'vol
 
 <!-- Script para menú hamburguesa -->
 <script>
-    function toggleMenu() {
-        const menu = document.getElementById('navMenu');
-        menu.classList.toggle('active');
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.querySelector('.menu-toggle');
+    const menu = document.getElementById('navMenu');
+    
+    if (toggleBtn && menu) {
+        toggleBtn.addEventListener('click', () => {
+            menu.classList.toggle('active');
+        });
     }
+});
 </script>
