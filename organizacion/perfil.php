@@ -52,7 +52,7 @@ $oportunidades = $coleccionOportunidades->find(['creado_por' => $idUsuario])->to
         <div class="profile-section">
             <div class="profile-pic">
                 <h4>Foto de Perfil</h4>
-                <img src="../uploads/<?php echo $usuario['foto_perfil'] ?? 'default.jpg'; ?>" alt="Foto de perfil" width="150">
+                <img src="<?php echo htmlspecialchars($usuario['foto_perfil'] ?? ''); ?>" alt="Foto de perfil" width="150">
 
                 <form action="subir_foto_org.php" method="POST" enctype="multipart/form-data">
                     <input type="file" name="foto_perfil" accept="image/*" required>
