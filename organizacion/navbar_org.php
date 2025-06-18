@@ -46,7 +46,7 @@ if (isset($_SESSION['usuario'])) {
         }
 
         .menu-toggle {
-            display: block !important;
+            display: none;
             font-size: 1.8em;
             background: none;
             color: white;
