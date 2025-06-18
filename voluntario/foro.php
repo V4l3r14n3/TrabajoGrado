@@ -135,39 +135,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mensaje'], $_POST['or
         </div>
 
         <!-- Dentro del foreach de mensajes (reemplaza tu bloque actual de mensajes por este): -->
-            <div class="publicaciones">
-    <?php foreach ($mensajes as $msg): ?>
-        <?php
-        $autor = $database->usuarios->findOne(['_id' => $msg['id_usuario']]);
-        $fotoPerfil = isset($autor['foto_perfil']) && !empty($autor['foto_perfil']) ? '../uploads/' . $autor['foto_perfil'] : '../img/perfil_default.png';
-        ?>
-        <div class="publicacion">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <a href="perfil_voluntario.php?id=<?= $autor['_id'] ?>">
-                    <img src="<?= $fotoPerfil ?>" alt="Perfil" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-                </a>
-                <a href="perfil_voluntario.php?id=<?= $autor['_id'] ?>">
-                    <h4 style="margin: 0;"><?= htmlspecialchars($msg['nombre']) ?></h4>
-                </a>
-            </div>
-            <small><strong>Organización:</strong> <?= htmlspecialchars($msg['organizacion']['organizacion'] ?? 'General'); ?></small>
-            <p><?= htmlspecialchars($msg['mensaje']); ?></p>
-            <small>
+        <div class="publicaciones">
+            <?php foreach ($mensajes as $msg): ?>
                 <?php
-                $date = $msg['fecha']->toDateTime()->setTimezone(new DateTimeZone('America/Bogota'));
-                echo $date->format('d/m/Y H:i');
+                $autor = $database->usuarios->findOne(['_id' => $msg['id_usuario']]);
+                $fotoPerfil = (isset($autor['foto_perfil']) && !empty($autor['foto_perfil']))
+                    ? (strpos($autor['foto_perfil'], 'http') === 0 ? $autor['foto_perfil'] : '../uploads/' . $autor['foto_perfil'])
+                    : '../img/perfil_default.png';
                 ?>
-            </small>
+                <div class="publicacion">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <a href="perfil_voluntario.php?id=<?= $autor['_id'] ?>">
+                            <img src="<?= $fotoPerfil ?>" alt="Perfil" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                        </a>
+                        <a href="perfil_voluntario.php?id=<?= $autor['_id'] ?>">
+                            <h4 style="margin: 0;"><?= htmlspecialchars($msg['nombre']) ?></h4>
+                        </a>
+                    </div>
+                    <small><strong>Organización:</strong> <?= htmlspecialchars($msg['organizacion']['organizacion'] ?? 'General'); ?></small>
+                    <p><?= htmlspecialchars($msg['mensaje']); ?></p>
+                    <small>
+                        <?php
+                        $date = $msg['fecha']->toDateTime()->setTimezone(new DateTimeZone('America/Bogota'));
+                        echo $date->format('d/m/Y H:i');
+                        ?>
+                    </small>
 
-            <?php if (isset($msg['respuesta'])): ?>
-                <div class="respuesta">
-                    <strong>Respuesta de <?= htmlspecialchars($msg['organizacion']['organizacion']); ?>:</strong>
-                    <p><?= htmlspecialchars($msg['respuesta']); ?></p>
+                    <?php if (isset($msg['respuesta'])): ?>
+                        <div class="respuesta">
+                            <strong>Respuesta de <?= htmlspecialchars($msg['organizacion']['organizacion']); ?>:</strong>
+                            <p><?= htmlspecialchars($msg['respuesta']); ?></p>
+                        </div>
+                    <?php endif; ?>
                 </div>
-            <?php endif; ?>
+            <?php endforeach; ?>
         </div>
-    <?php endforeach; ?>
-</div>
 
 
     </div>

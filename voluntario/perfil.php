@@ -159,7 +159,12 @@ if (!empty($idsOportunidades)) {
         <!-- Perfil -->
         <div class="profile-top">
             <div class="profile-pic">
-                <img src="../uploads/<?php echo $usuario['foto_perfil'] ?? 'default.jpg'; ?>" alt="Foto de perfil" width="150">
+                <?php
+                $fotoPerfil = (isset($usuario['foto_perfil']) && !empty($usuario['foto_perfil']))
+                    ? (strpos($usuario['foto_perfil'], 'http') === 0 ? $usuario['foto_perfil'] : '../uploads/' . $usuario['foto_perfil'])
+                    : '../img/perfil_default.png';
+                ?>
+                <img src="<?= htmlspecialchars($fotoPerfil) ?>" alt="Foto de perfil" width="150" style="border-radius: 50%; object-fit: cover;">
 
                 <form action="subir_foto.php" method="POST" enctype="multipart/form-data">
                     <input type="file" name="foto_perfil" accept="image/*" required>
