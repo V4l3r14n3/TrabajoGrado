@@ -154,7 +154,14 @@ if (isset($blog['creado_por'])) {
           <?php if ($organizacion): ?>
             <div class="autor-blog" style="display: flex; align-items: center; gap: 10px;">
               <?php if (!empty($organizacion['foto_perfil'])): ?>
-                <img src="/uploads/<?= htmlspecialchars($organizacion['foto_perfil']) ?>" alt="Logo de <?= htmlspecialchars($organizacion['nombre']) ?>" style="width: 40px; height: 40px; border-radius: 50%;">
+                <?php
+                // Detecta si es una imagen de Cloudinary (url completa) o local (archivo en /uploads)
+                $fotoSrc = str_starts_with($organizacion['foto_perfil'], 'http')
+                  ? $organizacion['foto_perfil']
+                  : "/uploads/" . $organizacion['foto_perfil'];
+                ?>
+                <img src="<?= htmlspecialchars($fotoSrc) ?>" alt="Logo de <?= htmlspecialchars($organizacion['nombre']) ?>"
+                  style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
               <?php endif; ?>
               <p style="margin: 0;">
                 Publicado por:
@@ -165,24 +172,30 @@ if (isset($blog['creado_por'])) {
             </div>
           <?php endif; ?>
 
-
           <?php if (count($imagenes) > 1): ?>
             <div class="carousel">
               <div class="carousel-inner">
                 <?php foreach ($imagenes as $index => $img): ?>
+                  <?php
+                  $src = str_starts_with($img, 'http') ? $img : "/voluntariado/" . $img;
+                  ?>
                   <div class="carousel-item">
-                    <a href="/voluntariado/<?php echo htmlspecialchars($img); ?>" data-lightbox="blog-<?php echo $blog['_id']; ?>" data-title="<?php echo htmlspecialchars($blog['titulo']); ?>">
-                      <img src="/<?php echo htmlspecialchars($img); ?>" alt="Imagen blog">
+                    <a href="<?= htmlspecialchars($src) ?>" data-lightbox="blog-<?= $blog['_id'] ?>" data-title="<?= htmlspecialchars($blog['titulo']) ?>">
+                      <img src="<?= htmlspecialchars($src) ?>" alt="Imagen blog" class="img-lightbox">
                     </a>
                   </div>
                 <?php endforeach; ?>
               </div>
             </div>
           <?php elseif (count($imagenes) === 1): ?>
-            <a href="/voluntariado/<?php echo htmlspecialchars($imagenes[0]); ?>" data-lightbox="blog-<?php echo $blog['_id']; ?>" data-title="<?php echo htmlspecialchars($blog['titulo']); ?>" class="lightbox-img">
-              <img src="/voluntariado/<?php echo htmlspecialchars($imagenes[0]); ?>" alt="Imagen blog" class="img-lightbox">
+            <?php
+            $src = str_starts_with($imagenes[0], 'http') ? $imagenes[0] : "/voluntariado/" . $imagenes[0];
+            ?>
+            <a href="<?= htmlspecialchars($src) ?>" data-lightbox="blog-<?= $blog['_id'] ?>" data-title="<?= htmlspecialchars($blog['titulo']) ?>" class="lightbox-img">
+              <img src="<?= htmlspecialchars($src) ?>" alt="Imagen blog" class="img-lightbox">
             </a>
           <?php endif; ?>
+
 
           <p><?php echo nl2br(htmlspecialchars($blog['contenido'])); ?></p>
 
