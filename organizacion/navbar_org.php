@@ -175,9 +175,9 @@ if (isset($_SESSION['usuario'])) {
         }
 
         .nav-menu {
-            display: none;
+            display: none !important;
             flex-direction: column;
-            width: 100%;
+            width: 100% !important;
             margin-top: 10px;
             background: transparent; /* ← corregido */
             border-top: 1px solid rgba(255, 255, 255, 0.3);
@@ -185,7 +185,7 @@ if (isset($_SESSION['usuario'])) {
         }
 
         .nav-menu.active {
-            display: flex;
+            display: flex !important;
         }
 
         .nav-left ul {
