@@ -61,6 +61,7 @@ if (isset($_SESSION["usuario"]["_id"])) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Blogs</title>
     <link rel="stylesheet" href="../css/ver_publicacion_org.css">
     <link href="https://cdn.jsdelivr.net/npm/lightbox2@2/dist/css/lightbox.min.css" rel="stylesheet" />
