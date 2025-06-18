@@ -13,7 +13,6 @@ if (isset($_SESSION['usuario'])) {
 }
 ?>
 
-<head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
     nav {
@@ -205,8 +204,6 @@ if (isset($_SESSION['usuario'])) {
         }
     }
 </style>
-
-</head>
 
 <nav>
     <div style="display: flex; align-items: center; gap: 15px;">
