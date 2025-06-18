@@ -139,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mensaje'], $_POST['or
     <?php foreach ($mensajes as $msg): ?>
         <?php
         $autor = $database->usuarios->findOne(['_id' => $msg['id_usuario']]);
-        $fotoPerfil = isset($autor['foto_perfil']) && !empty($autor['foto_perfil']) ? '../uploads/' . $autor['foto_perfil'] : '../img/default_user.png';
+        $fotoPerfil = isset($autor['foto_perfil']) && !empty($autor['foto_perfil']) ? '../uploads/' . $autor['foto_perfil'] : '../img/perfil_default.png';
         ?>
         <div class="publicacion">
             <div style="display: flex; align-items: center; gap: 10px;">
