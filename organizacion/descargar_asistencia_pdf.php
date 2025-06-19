@@ -1,4 +1,6 @@
 <?php
+if (ob_get_level() == 0) ob_start(); // Inicia el buffer si no está activo
+
 require '../vendor/autoload.php';
 require '../conexion.php';
 use Dompdf\Dompdf;
@@ -50,7 +52,7 @@ $html = '
 
 <div class="info">
     <p><strong>Oportunidad:</strong> ' . htmlspecialchars($oportunidad['titulo']) . '</p>
-    <p><strong>Organización Encargada:</strong> ' . htmlspecialchars($oportunidad['nombre_organizacion']) . '</p>
+    <p><strong>Organización Encargada:</strong> ' . htmlspecialchars($oportunidad['nombre_organizacion'] ?? 'No disponible') . '</p>
     <p><strong>Ciudad:</strong> ' . htmlspecialchars($oportunidad['ubicacion']) . '</p>
     <p><strong>Fecha de Inicio:</strong> ' . (
         $oportunidad['fecha_inicio'] instanceof MongoDB\BSON\UTCDateTime
@@ -91,5 +93,13 @@ $dompdf = new Dompdf();
 $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
-ob_end_clean(); // Limpiar salida previa si hay
+
+// Limpieza segura del buffer si hay niveles activos
+if (ob_get_level()) {
+    while (ob_get_level() > 0) {
+        ob_end_clean();
+    }
+}
+
+// Enviar el PDF
 $dompdf->stream("asistencia_" . preg_replace("/[^a-zA-Z0-9]/", "_", $oportunidad['titulo']) . ".pdf", ["Attachment" => false]);
