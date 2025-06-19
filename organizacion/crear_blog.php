@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             foreach ($_FILES['imagenes']['name'] as $key => $nombreOriginal) {
                 $extension = strtolower(pathinfo($nombreOriginal, PATHINFO_EXTENSION));
-                
+
                 if (!in_array($extension, $permitidos)) {
                     $mensaje = "❌ Tipo de archivo no permitido: $extension";
                     continue;
@@ -64,6 +64,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $coleccion->insertOne($nuevoBlog);
                 $mensaje = "✅ Blog publicado con éxito.";
 
+                // Obtener nombre de la organización
+                $nombre_organizacion = $_SESSION["usuario"]["organizacion"] ?? "Organización Desconocida";
+
+
                 // Notificar dinámicamente a todos los admins
                 $admins = $database->usuarios->find(['tipo_usuario' => 'admin']);
 
@@ -71,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $database->notificaciones->insertOne([
                         'id_usuario' => $admin['_id'],
                         'tipo' => 'nuevo_blog',
-                        'mensaje' => "🔔 La organización {$nombre_organizacion} ha publicado un nuevo blog: {$titulo}.",
+                        'mensaje' => "🔔 La organización: {$nombre_organizacion} ha publicado un nuevo blog: {$titulo}.",
                         'fecha' => new UTCDateTime(),
                         'leido' => false
                     ]);
@@ -86,43 +90,46 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Blog</title>
     <link rel="stylesheet" href="../css/blog.css">
 </head>
+
 <body>
-<?php include 'navbar_org.php'; ?>
+    <?php include 'navbar_org.php'; ?>
 
-<div class="container">
-    <h2>Publicar Nueva Entrada de Blog</h2>
+    <div class="container">
+        <h2>Publicar Nueva Entrada de Blog</h2>
 
-    <?php if ($mensaje): ?>
-        <div class="alert <?php echo strpos($mensaje, '✅') !== false ? 'alert-success' : 'alert-danger'; ?>">
-            <?php echo $mensaje; ?>
-        </div>
-    <?php endif; ?>
+        <?php if ($mensaje): ?>
+            <div class="alert <?php echo strpos($mensaje, '✅') !== false ? 'alert-success' : 'alert-danger'; ?>">
+                <?php echo $mensaje; ?>
+            </div>
+        <?php endif; ?>
 
-    <form action="crear_blog.php" method="POST" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="titulo" class="form-label">Título</label>
-            <input type="text" name="titulo" id="titulo" class="form-control" required>
-        </div>
+        <form action="crear_blog.php" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="titulo" class="form-label">Título</label>
+                <input type="text" name="titulo" id="titulo" class="form-control" required>
+            </div>
 
-        <div class="mb-3">
-            <label for="contenido" class="form-label">Contenido</label>
-            <textarea name="contenido" id="contenido" class="form-control" rows="5" required></textarea>
-        </div>
+            <div class="mb-3">
+                <label for="contenido" class="form-label">Contenido</label>
+                <textarea name="contenido" id="contenido" class="form-control" rows="5" required></textarea>
+            </div>
 
-        <div class="mb-3">
-            <label for="imagenes" class="form-label">Imágenes (opcional)</label>
-            <input type="file" name="imagenes[]" id="imagenes" class="form-control" multiple>
-            <small class="form-text text-muted">Puedes seleccionar múltiples imágenes.</small>
-        </div>
+            <div class="mb-3">
+                <label for="imagenes" class="form-label">Imágenes (opcional)</label>
+                <input type="file" name="imagenes[]" id="imagenes" class="form-control" multiple>
+                <small class="form-text text-muted">Puedes seleccionar múltiples imágenes.</small>
+            </div>
 
-        <button type="submit" class="btn btn-primary">Publicar Blog</button>
-    </form>
-</div>
+            <button type="submit" class="btn btn-primary">Publicar Blog</button>
+        </form>
+    </div>
 </body>
+
 </html>
