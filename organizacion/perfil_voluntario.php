@@ -205,7 +205,7 @@ $opcionesIntereses = [
                                 ?>
                             </span><br>
                             <span>Organización: <?= htmlspecialchars($asis['nombre_organizacion']) ?></span><br>
-                            <a href="../voluntario/generar_certificado.php?id=<?= $asis['_id'] ?>" class="btn-ver-certificado" target="_blank">
+                            <a href="../voluntario/generar_certificado.php?id=<?= $asis['_id'] ?>&voluntario=<?= htmlspecialchars($idVoluntario) ?>" class="btn-ver-certificado" target="_blank">
                                 Ver Certificado
                             </a>
                         </div>
