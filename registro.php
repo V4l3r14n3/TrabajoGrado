@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["aceptar_consentimiento
                     // Notificar a todos los administradores
                     $admins = $database->usuarios->find(['tipo_usuario' => 'admin']);
 
-                    $mensajeNotificacion = "🆕 Se ha creado una nueva cuenta de tipo '{$tipo_usuario}' con el nombre: {$organizacion}.";
+                    $mensajeNotificacion = "🆕 Se ha creado una nueva cuenta de tipo '{$tipo_usuario}' por el usuario: {$nombre}.";
 
                     foreach ($admins as $admin) {
                         $database->notificaciones->insertOne([
