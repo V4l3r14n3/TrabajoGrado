@@ -22,7 +22,7 @@ if (!$blog) {
     die("Blog no encontrado o no tienes permiso.");
 }
 
-// Eliminar imagen
+// ELIMINAR IMAGEN DEL ARRAY (NO DEL SERVIDOR)
 if (isset($_GET['eliminar_img'])) {
     $imgEliminar = $_GET['eliminar_img'];
     $imagenesActuales = iterator_to_array($blog->imagenes ?? []);
@@ -33,28 +33,28 @@ if (isset($_GET['eliminar_img'])) {
         ['$set' => ["imagenes" => array_values($imagenesActualizadas)]]
     );
 
-    $rutaArchivo = "../" . $imgEliminar;
-    if (file_exists($rutaArchivo)) {
-        unlink($rutaArchivo);
+    // SOLO ELIMINAR ARCHIVO SI ES LOCAL
+    if (strpos($imgEliminar, 'http') !== 0) {
+        $rutaArchivo = "../" . $imgEliminar;
+        if (file_exists($rutaArchivo)) {
+            unlink($rutaArchivo);
+        }
     }
 
     header("Location: editar_blog.php?id=$id");
     exit();
 }
 
-// Reordenar imágenes
+// REORDENAR IMÁGENES
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["orden_imagenes"])) {
     $nuevoOrden = json_decode($_POST["orden_imagenes"], true);
-
     $coleccion->updateOne(
         ["_id" => new ObjectId($id)],
         ['$set' => ["imagenes" => $nuevoOrden]]
     );
-
-    // Continuar con el resto del formulario
 }
 
-// Guardar datos
+// GUARDAR CAMBIOS
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["titulo"])) {
     $titulo = trim($_POST["titulo"] ?? '');
     $contenido = trim($_POST["contenido"] ?? '');
@@ -62,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["titulo"])) {
     if ($titulo && $contenido) {
         $nuevas_imagenes = [];
 
+        // SUBIDA DE IMÁGENES NUEVAS (puede incluir URLs de Cloudinary si se adapta más adelante)
         if (!empty($_FILES['imagenes']['name'][0])) {
             $permitidos = ['jpg', 'jpeg', 'png', 'gif','webp'];
             foreach ($_FILES['imagenes']['name'] as $key => $nombreArchivo) {
@@ -99,6 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["titulo"])) {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -153,7 +155,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["titulo"])) {
                         <?php foreach ($blog->imagenes as $img): ?>
                             <div class="img-preview" draggable="true" ondragstart="drag(event)" data-src="<?php echo htmlspecialchars($img); ?>">
                                 <a href="editar_blog.php?id=<?php echo $id; ?>&eliminar_img=<?php echo urlencode($img); ?>" onclick="return confirm('¿Eliminar esta imagen?')">×</a>
-                                <img src="../<?php echo htmlspecialchars($img); ?>" alt="img">
+                                <img src="<?php echo htmlspecialchars($img); ?>" alt="img">
                             </div>
                         <?php endforeach; ?>
                     </div>
