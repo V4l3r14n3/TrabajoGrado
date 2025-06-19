@@ -67,6 +67,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $resultado = $coleccion->insertOne($nuevaOportunidad);
                 if ($resultado->getInsertedCount() > 0) {
                     $mensaje = "✅ Oportunidad creada con éxito.";
+
+                    // Notificar dinámicamente a todos los admins
+                    $admins = $database->usuarios->find(['tipo_usuario' => 'admin']);
+
+                    foreach ($admins as $admin) {
+                        $database->notificaciones->insertOne([
+                            'id_usuario' => $admin['_id'],
+                            'tipo' => 'nueva_oportunidad',
+                            'mensaje' => "🔔 La organización {$nombreOrganizacion} ha publicado una nueva oportunidad: {$titulo}.",
+                            'fecha' => new UTCDateTime(),
+                            'leido' => false
+                        ]);
+                    }
                 } else {
                     $mensaje = "❌ Hubo un problema al guardar la oportunidad.";
                 }
