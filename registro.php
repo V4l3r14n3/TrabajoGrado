@@ -15,6 +15,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["aceptar_consentimiento
     } else {
         $nombre = $_POST["nombre"];
         $email = $_POST["email"];
+        // Verificar si ya existe un usuario con ese correo
+        $usuarioExistente = $database->usuarios->findOne(['email' => $email]);
+
+        if ($usuarioExistente) {
+            $error = "Ya existe una cuenta registrada con ese correo electrónico.";
+        }
         $password = password_hash($_POST["password"], PASSWORD_BCRYPT);
         $tipo_usuario = $_POST["tipo_usuario"];
 
@@ -49,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["aceptar_consentimiento
                     // Notificar a todos los administradores
                     $admins = $database->usuarios->find(['tipo_usuario' => 'admin']);
 
-                    $mensajeNotificacion = "🆕 Se ha creado una nueva cuenta de tipo '{$tipo_usuario}' con el nombre: {$nombre}.";
+                    $mensajeNotificacion = "🆕 Se ha creado una nueva cuenta de tipo '{$tipo_usuario}' con el nombre: {$organizacion}.";
 
                     foreach ($admins as $admin) {
                         $database->notificaciones->insertOne([
