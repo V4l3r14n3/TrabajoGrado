@@ -328,7 +328,7 @@ if (!empty($idsOportunidades)) {
                             ?>
                         </span><br>
                         <span>Organización: <?php echo htmlspecialchars($asis['nombre_organizacion']); ?></span><br>
-                        <a href="generar_certificado.php?id=<?php echo $asis['_id']; ?>" class="btn-ver-certificado" target="_blank">
+                        <a href="generar_certificado.php?id=<?php echo $asis['_id']; ?>&voluntario=<?php echo $idVoluntarioStr; ?>" class="btn-ver-certificado" target="_blank">
                             Ver Certificado
                         </a>
                     </li>

@@ -11,14 +11,21 @@ if (!isset($_GET['id']) || !isset($_GET['voluntario'])) {
     die("ID de oportunidad o voluntario no válidos.");
 }
 
-$idOportunidad = new ObjectId($_GET['id']);
-$idVoluntario = new ObjectId($_GET['voluntario']);
+try {
+    $idOportunidad = new ObjectId($_GET['id']);
+    $idVoluntario = new ObjectId($_GET['voluntario']);
+} catch (Exception $e) {
+    die("IDs inválidos.");
+}
 
-// Buscar la postulación correspondiente
+// Buscar la postulación correspondiente (acepta booleano o string)
 $postulacion = $database->postulaciones->findOne([
     'id_oportunidad' => $idOportunidad,
     'id_usuario' => $idVoluntario,
-    'asistio' => true
+    '$or' => [
+        ['asistio' => true],
+        ['asistio' => 'true']
+    ]
 ]);
 
 if (!$postulacion) {
@@ -40,7 +47,7 @@ $fecha = ($oportunidad['fecha_inicio'] instanceof MongoDB\BSON\UTCDateTime)
     ? $oportunidad['fecha_inicio']->toDateTime()->format('d-m-Y')
     : 'Fecha no disponible';
 
-// Cargar logo
+// Cargar logo en base64
 $logoBase64 = base64_encode(file_get_contents(__DIR__ . '/../img/logo.png'));
 $logoSrc = 'data:image/png;base64,' . $logoBase64;
 
@@ -133,6 +140,7 @@ $html = '
 </html>
 ';
 
+// Renderizar PDF
 $options = new Options();
 $options->set('isRemoteEnabled', true);
 $dompdf = new Dompdf($options);
