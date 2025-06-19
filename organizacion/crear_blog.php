@@ -63,6 +63,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             try {
                 $coleccion->insertOne($nuevoBlog);
                 $mensaje = "✅ Blog publicado con éxito.";
+
+                // Notificar dinámicamente a todos los admins
+                $admins = $database->usuarios->find(['tipo_usuario' => 'admin']);
+
+                foreach ($admins as $admin) {
+                    $database->notificaciones->insertOne([
+                        'id_usuario' => $admin['_id'],
+                        'tipo' => 'nuevo_blog',
+                        'mensaje' => "🔔 La organización {$nombreOrganizacion} ha publicado un nuevo blog: {$titulo}.",
+                        'fecha' => new UTCDateTime(),
+                        'leido' => false
+                    ]);
+                }
             } catch (Exception $e) {
                 $mensaje = "❌ Error al guardar en MongoDB: " . $e->getMessage();
             }

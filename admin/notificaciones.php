@@ -34,7 +34,7 @@ $notificaciones = $database->notificaciones->find(
     <title>Notificaciones</title>
     <link rel="stylesheet" href="../css/noti_org.css">
 </head>
-<?php include 'navbar_org.php'; ?>
+<?php include 'navbar_admin.php'; ?>
 
 <body>
     <h2>Tus Notificaciones</h2>

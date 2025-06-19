@@ -46,6 +46,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["aceptar_consentimiento
             try {
                 $resultado = $coleccion->insertOne($nuevoUsuario);
                 if ($resultado->getInsertedCount() === 1) {
+                    // Notificar a todos los administradores
+                    $admins = $database->usuarios->find(['tipo_usuario' => 'admin']);
+
+                    $mensajeNotificacion = "🆕 Se ha creado una nueva cuenta de tipo '{$tipo_usuario}' con el nombre: {$nombre}.";
+
+                    foreach ($admins as $admin) {
+                        $database->notificaciones->insertOne([
+                            'id_usuario' => $admin['_id'],
+                            'tipo' => 'nuevo_registro',
+                            'mensaje' => $mensajeNotificacion,
+                            'fecha' => new UTCDateTime(),
+                            'leido' => false
+                        ]);
+                    }
                     header("Location: login.php?registro_exitoso=1");
                     exit();
                 } else {
