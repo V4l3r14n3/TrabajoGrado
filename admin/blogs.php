@@ -24,7 +24,7 @@ if (isset($_GET["eliminar"])) {
                 'leido' => false
             ];
             $database->notificaciones->insertOne($notificacion);
-        }        
+        }
 
         // Eliminar el blog
         $coleccion->deleteOne(["_id" => $idEliminar]);
@@ -206,7 +206,7 @@ $blogs = $coleccion->find([], ['sort' => ['fecha_creacion' => -1]]);
                                 <h3>Imágenes del blog</h3>
                                 <div class="img-grid">
                                     <?php foreach ($blog["imagenes"] as $img): ?>
-                                        <img src="../<?= $img ?>" alt="Imagen del blog">
+                                        <img src="<?= htmlspecialchars($img) ?>" alt="Imagen del blog">
                                     <?php endforeach; ?>
                                 </div>
                             </div>
