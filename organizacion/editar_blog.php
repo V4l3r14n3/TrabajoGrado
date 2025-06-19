@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["titulo"])) {
 
         // SUBIDA DE IMÁGENES NUEVAS (puede incluir URLs de Cloudinary si se adapta más adelante)
         if (!empty($_FILES['imagenes']['name'][0])) {
-            $permitidos = ['jpg', 'jpeg', 'png', 'gif','webp'];
+            $permitidos = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
             foreach ($_FILES['imagenes']['name'] as $key => $nombreArchivo) {
                 $nombreLimpio = basename($nombreArchivo);
                 $rutaArchivo = "../uploads/" . $nombreLimpio;
@@ -111,9 +111,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["titulo"])) {
     <link rel="stylesheet" href="../css/editar_blog.css">
     <style>
         .img-preview {
+            position: relative;
             display: inline-block;
             margin: 5px;
-            position: relative;
             cursor: move;
         }
 
@@ -127,12 +127,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["titulo"])) {
             position: absolute;
             top: 0;
             right: 0;
-            background: red;
+            background: rgba(255, 0, 0, 0.85);
             color: white;
-            padding: 2px 6px;
+            padding: 4px 8px;
             text-decoration: none;
             font-weight: bold;
             border-radius: 0 6px 0 6px;
+            z-index: 10;
+            transition: background 0.2s ease;
+        }
+
+        .img-preview a:hover {
+            background: rgba(200, 0, 0, 1);
         }
     </style>
 </head>

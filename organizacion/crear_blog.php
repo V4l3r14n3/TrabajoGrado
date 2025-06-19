@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $database->notificaciones->insertOne([
                         'id_usuario' => $admin['_id'],
                         'tipo' => 'nuevo_blog',
-                        'mensaje' => "🔔 La organización {$nombreOrganizacion} ha publicado un nuevo blog: {$titulo}.",
+                        'mensaje' => "🔔 La organización {$nombre_organizacion} ha publicado un nuevo blog: {$titulo}.",
                         'fecha' => new UTCDateTime(),
                         'leido' => false
                     ]);
