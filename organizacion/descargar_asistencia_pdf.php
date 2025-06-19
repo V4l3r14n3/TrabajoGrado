@@ -50,7 +50,7 @@ $html = '
 
 <div class="info">
     <p><strong>Oportunidad:</strong> ' . htmlspecialchars($oportunidad['titulo']) . '</p>
-    <p><strong>Organización Encargada:</strong> ' . htmlspecialchars($oportunidad['nombre_organizacio   n']) . '</p>
+    <p><strong>Organización Encargada:</strong> ' . htmlspecialchars($oportunidad['nombre_organizacion']) . '</p>
     <p><strong>Ciudad:</strong> ' . htmlspecialchars($oportunidad['ubicacion']) . '</p>
     <p><strong>Fecha de Inicio:</strong> ' . (
         $oportunidad['fecha_inicio'] instanceof MongoDB\BSON\UTCDateTime
