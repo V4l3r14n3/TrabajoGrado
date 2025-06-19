@@ -11,6 +11,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['tipo_usuario'] !== 'vo
 }
 
 $idUsuario = new ObjectId($_SESSION['usuario']['_id']);
+$idVoluntarioStr = (string) $_SESSION['usuario']['_id']; // <-- Esta línea es clave
 $usuario = $database->usuarios->findOne(['_id' => $idUsuario]);
 
 $postulaciones = $database->postulaciones->find(['id_usuario' => $idUsuario])->toArray();
