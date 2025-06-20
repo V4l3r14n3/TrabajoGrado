@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma de Voluntariado</title>
-    <link rel="stylesheet" href="css/index1.css">
+    <link rel="stylesheet" href="css/indexprincipal.css">
     <script defer src="js/index.js"></script>
 </head>
 
