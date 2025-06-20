@@ -54,8 +54,8 @@ $usuarios = $database->usuarios->find(["tipo_usuario" => "organizacion"]);
                         <td data-label="Nombre"><?= htmlspecialchars($usuario["nombre"]) ?></td>
                         <td data-label="Email"><?= htmlspecialchars($usuario["email"]) ?></td>
                         <td data-label="Organización"><?= htmlspecialchars($usuario["organizacion"] ?? '') ?></td>
-                        <td data-label="Contenido">
-                            <?= nl2br(htmlspecialchars(mb_strimwidth($usuario["contenido"], 0, 150, "..."))) ?>
+                        <td data-label="Descripción">
+                            <?= nl2br(htmlspecialchars(mb_strimwidth($usuario["descripcion"], 0, 150, "..."))) ?>
                         </td>
                         <td data-label="Documentos">
                             <?php if (!empty($usuario["documento_link"])): ?>
