@@ -64,7 +64,6 @@ nav ul li a {
     transition: 
         color 0.3s ease,
         background-color 0.3s ease,
-        box-shadow 0.3s ease;
 }
 
 /* Línea animada debajo del texto */
