@@ -51,19 +51,21 @@ $usuarios = $database->usuarios->find(["tipo_usuario" => "organizacion"]);
             <tbody>
                 <?php foreach ($usuarios as $usuario): ?>
                     <tr>
-                        <td><?= htmlspecialchars($usuario["nombre"]) ?></td>
-                        <td><?= htmlspecialchars($usuario["email"]) ?></td>
-                        <td><?= htmlspecialchars($usuario["organizacion"] ?? '') ?></td>
-                        <td><?= htmlspecialchars($usuario["descripcion"] ?? '') ?></td>
-                        <td>
+                        <td data-label="Nombre"><?= htmlspecialchars($usuario["nombre"]) ?></td>
+                        <td data-label="Email"><?= htmlspecialchars($usuario["email"]) ?></td>
+                        <td data-label="Organización"><?= htmlspecialchars($usuario["organizacion"] ?? '') ?></td>
+                        <td data-label="Contenido">
+                            <?= nl2br(htmlspecialchars(mb_strimwidth($usuario["contenido"], 0, 150, "..."))) ?>
+                        </td>
+                        <td data-label="Documentos">
                             <?php if (!empty($usuario["documento_link"])): ?>
                                 <a href="<?= htmlspecialchars($usuario["documento_link"]) ?>" target="_blank">Ver documento</a>
                             <?php else: ?>
                                 No disponible
                             <?php endif; ?>
                         </td>
-                        <td><?= $usuario["verificado"] ? "Sí" : "No" ?></td>
-                        <td>
+                        <td data-label="Verficado"><?= $usuario["verificado"] ? "Sí" : "No" ?></td>
+                        <td data-label="Acción">
                             <a class="btn-eliminar" href="organizacion.php?eliminar=<?= $usuario["_id"] ?>" onclick="return confirm('¿Seguro que deseas eliminar este usuario?')">Eliminar</a>
                         </td>
                     </tr>

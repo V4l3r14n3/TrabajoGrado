@@ -45,11 +45,11 @@ $foros = $database->foro->find([], ['sort' => ['fecha' => -1]]);
         <tbody>
             <?php foreach ($foros as $foro): ?>
                 <tr>
-                    <td><?= htmlspecialchars($foro["nombre"] ?? 'Sin nombre') ?></td>
-                    <td><?= htmlspecialchars($foro["mensaje"] ?? '') ?></td>
-                    <td><?= htmlspecialchars($foro["organizacion"]["organizacion"] ?? 'No disponible') ?></td>
-                    <td><?= htmlspecialchars($foro["respuesta"] ?? 'Sin respuesta') ?></td>
-                    <td>
+                    <td data-label="Nombre"><?= htmlspecialchars($foro["nombre"] ?? 'Sin nombre') ?></td>
+                    <td data-label="Mensaje"><?= htmlspecialchars($foro["mensaje"] ?? '') ?></td>
+                    <td data-label="Organización"><?= htmlspecialchars($foro["organizacion"]["organizacion"] ?? 'No disponible') ?></td>
+                    <td data-label="Respuesta"><?= htmlspecialchars($foro["respuesta"] ?? 'Sin respuesta') ?></td>
+                    <td data-label="Acción">
                         <a class="btn-eliminar" href="foros.php?eliminar=<?= $foro["_id"] ?>" onclick="return confirm('¿Seguro que deseas eliminar este foro?')">Eliminar</a>
                     </td>
                 </tr>
