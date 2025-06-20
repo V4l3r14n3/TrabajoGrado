@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"], $_POST["accion"
         $verificado = false;
         $mensaje = "❌ Tu solicitud de verificación ha sido rechazada. Motivo: " . trim($_POST["mensaje_rechazo"]);
     }
-    
+
     if ($estado && $mensaje) {
         // Actualiza estado del usuario
         $coleccion->updateOne(
@@ -77,148 +77,90 @@ $pendientes = $coleccion->count([
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración - Verificación de Organizaciones</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <style>
-        body {
-            background-color: #f9f9f9;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        .alerta {
-            background-color: #ffeeba;
-            border: 1px solid #f0ad4e;
-            color: #856404;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-        }
-
-        .btn-aprobar {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            margin-right: 5px;
-            cursor: pointer;
-        }
-
-        .btn-rechazar {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        table th,
-        table td {
-            padding: 10px;
-            border: 1px solid #ccc;
-            text-align: center;
-        }
-    </style>
 </head>
-
 <body>
-    <!-- Barra de navegación -->
-    <?php include 'navbar_admin.php'; ?>
 
-    <main class="container">
-        <h1>Verificación de Organizaciones</h1>
+<?php include 'navbar_admin.php'; ?>
 
-        <!-- Alerta de pendientes -->
-        <?php if ($pendientes > 0): ?>
-            <div class="alerta">
-                Hay <strong><?php echo $pendientes; ?></strong> organización(es) pendientes de verificación.
-            </div>
-        <?php else: ?>
-            <div class="alerta" style="background-color: #d4edda; color: #155724; border-color: #c3e6cb;">
-                No hay organizaciones pendientes de verificación.
-            </div>
-        <?php endif; ?>
+<main class="container">
+    <h1>Verificación de Organizaciones</h1>
 
-        <!-- Tabla -->
-        <table>
-            <thead>
+    <?php if ($pendientes > 0): ?>
+        <div class="alerta">Hay <strong><?= $pendientes ?></strong> organización(es) pendientes de verificación.</div>
+    <?php else: ?>
+        <div class="alerta" style="background-color: #d4edda; color: #155724; border-color: #c3e6cb;">
+            No hay organizaciones pendientes de verificación.
+        </div>
+    <?php endif; ?>
+
+    <table>
+        <thead>
+            <tr>
+                <th title="Nombre completo del solicitante">👤 Nombre</th>
+                <th title="Correo electrónico de contacto">✉️ Correo</th>
+                <th title="Documento de respaldo">📄 Enlace</th>
+                <th title="Estado actual de verificación">🔎 Estado</th>
+                <th title="Aprobar o rechazar la solicitud">⚙️ Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($organizaciones as $org): ?>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th>Enlace</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
+                    <td data-label="Nombre">
+                        <?= htmlspecialchars($org["nombre"] ?? "Sin nombre") ?>
+                        <?php if (($org["estado_verificacion"] ?? "") === "aprobado"): ?>
+                            ✅
+                        <?php endif; ?>
+                    </td>
+                    <td data-label="Correo"><?= htmlspecialchars($org["email"] ?? "Sin correo") ?></td>
+                    <td data-label="Documento">
+                        <?php if (!empty($org["documento_link"])): ?>
+                            <a href="<?= htmlspecialchars($org["documento_link"]) ?>" target="_blank">Ver Enlace</a>
+                        <?php else: ?>
+                            No disponible
+                        <?php endif; ?>
+                    </td>
+                    <td data-label="Estado"><?= ucfirst($org["estado_verificacion"] ?? "pendiente") ?></td>
+                    <td data-label="Acciones">
+                        <form method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="<?= $org["_id"] ?>">
+                            <input type="hidden" name="accion" value="aprobar">
+                            <button type="submit" class="btn-aprobar">Aprobar</button>
+                        </form>
+
+                        <form method="POST" onsubmit="return confirmarRechazo(this);" style="display:inline;">
+                            <input type="hidden" name="id" value="<?= $org["_id"] ?>">
+                            <textarea name="mensaje_rechazo" placeholder="Motivo del rechazo..." style="display:none;" required></textarea>
+                            <button type="button" class="btn-rechazar" onclick="mostrarTextarea(this)">Rechazar</button>
+                            <button type="submit" name="accion" value="rechazar" class="btn-rechazar" style="display:none;">Confirmar</button>
+                        </form>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($organizaciones as $org): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($org["nombre"] ?? "Sin nombre"); ?></td>
-                        <td><?php echo htmlspecialchars($org["email"] ?? "Sin correo"); ?></td>
-                        <td>
-                            <?php if (!empty($org["documento_link"])): ?>
-                                <a href="<?php echo htmlspecialchars($org["documento_link"]); ?>" target="_blank" rel="noopener noreferrer">Ver Enlace</a>
-                            <?php else: ?>
-                                No disponible
-                            <?php endif; ?>
-                        </td>
-                        <td><?php echo ucfirst($org["estado_verificacion"] ?? "pendiente"); ?></td>
-                        <td>
-                            <!-- Formulario para Aprobar -->
-                            <form action="index.php" method="POST" style="display:inline;">
-                                <input type="hidden" name="id" value="<?php echo $org["_id"]; ?>">
-                                <input type="hidden" name="accion" value="aprobar">
-                                <button type="submit" class="btn-aprobar">Aprobar</button>
-                            </form>
+            <?php endforeach ?>
+        </tbody>
+    </table>
+</main>
 
-                            <!-- Formulario para Rechazar con textarea -->
-                            <form action="index.php" method="POST" onsubmit="return confirmarRechazo(this);" style="display:inline;">
-                                <input type="hidden" name="id" value="<?php echo $org["_id"]; ?>">
-                                <textarea name="mensaje_rechazo" placeholder="Motivo del rechazo..." style="display:none; margin-top: 5px;" required></textarea>
-                                <button type="button" class="btn-rechazar" onclick="mostrarTextarea(this)">Rechazar</button>
-                                <button type="submit" name="accion" value="rechazar" class="btn-rechazar" style="display:none;">Confirmar Rechazo</button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </main>
+<script>
+    function mostrarTextarea(boton) {
+        const form = boton.closest("form");
+        const textarea = form.querySelector("textarea");
+        const confirmarBtn = form.querySelector("button[type='submit']");
+        textarea.style.display = "block";
+        confirmarBtn.style.display = "inline-block";
+        boton.style.display = "none";
+        textarea.focus();
+    }
 
-    <script>
-        function mostrarTextarea(boton) {
-            const form = boton.closest("form");
-            const textarea = form.querySelector("textarea[name='mensaje_rechazo']");
-            const botonConfirmar = form.querySelector("button[type='submit'][value='rechazar']");
-
-            textarea.style.display = "block";
-            boton.style.display = "none";
-            botonConfirmar.style.display = "inline-block";
-            textarea.focus();
+    function confirmarRechazo(formulario) {
+        const textarea = formulario.querySelector("textarea");
+        if (!textarea.value.trim()) {
+            alert("Por favor, indica el motivo del rechazo.");
+            return false;
         }
-
-        function confirmarRechazo(formulario) {
-            const accion = formulario.querySelector("button[type='submit'][value='rechazar']");
-            const textarea = formulario.querySelector("textarea[name='mensaje_rechazo']");
-            if (accion && accion.style.display !== "none" && textarea.value.trim() === "") {
-                alert("Por favor, indica el motivo del rechazo.");
-                return false;
-            }
-            return true;
-        }
-    </script>
+        return true;
+    }
+</script>
 
 </body>
-
 </html>
