@@ -19,10 +19,16 @@ nav {
     padding: 10px 20px;
 }
 
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
 .logo {
-    height: 30px;
-    margin-right: 10px;
-    vertical-align: middle;
+    height: 45px;
+    width: auto;
+    max-height: 100%;
 }
 
 nav ul {

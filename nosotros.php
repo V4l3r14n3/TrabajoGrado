@@ -12,7 +12,9 @@
 <body>
     <header>
         <nav>
-            <img src="img/logo.png" alt="Logo" class="logo">
+            <a href="index.php" class="logo-container">
+                <img src="img/logo.png" alt="Logo" class="logo">
+            </a>
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             <ul id="menu">
                 <li><a href="index.php">Inicio</a></li>
@@ -21,6 +23,7 @@
                 <li><a href="nosotros.php">Sobre Nosotros</a></li>
             </ul>
         </nav>
+
     </header>
 
     <main class="container">
