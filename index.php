@@ -14,7 +14,9 @@
         <nav>
             <a href="index.php" class="logo-container">
                 <img src="img/logo.png" alt="Logo" class="logo">
+                <span class="logo-text">Volunteero</span>
             </a>
+
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             <ul id="menu">
                 <li><a href="index.php">Inicio</a></li>
