@@ -12,6 +12,7 @@
 <body>
     <header>
         <nav>
+            <img src="img/logo.png" alt="Logo" class="logo">
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             <ul id="menu">
                 <li><a href="index.php">Inicio</a></li>
