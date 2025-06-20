@@ -29,7 +29,7 @@ nav {
 }
 
 .logo {
-    height: 40px;
+    height: 60px;
     width: auto;
     margin-right: 10px;
 }
@@ -55,10 +55,36 @@ nav ul li {
 }
 
 nav ul li a {
+    position: relative;
     color: white;
     text-decoration: none;
     font-weight: bold;
+    padding: 5px 0;
+    transition: color 0.3s ease;
 }
+
+/* Línea animada debajo del texto al hacer hover */
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background-color: #ffcc00;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ffcc00;
+}
+
+nav ul li a:hover::after {
+    transform: scaleX(1);
+}
+
 
 /* Botón hamburguesa */
 .menu-toggle {
@@ -268,7 +294,7 @@ footer {
     }
 
     .logo {
-        height: 30px;
+        height: 45px;
     }
 
     .logo-text {
