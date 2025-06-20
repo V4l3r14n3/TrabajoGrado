@@ -51,9 +51,9 @@ $usuarios = $database->usuarios->find(["tipo_usuario" => "voluntario"]);
             <tbody>
                 <?php foreach ($usuarios as $usuario): ?>
                     <tr>
-                        <td data-label="nombre"><?= htmlspecialchars($usuario["nombre"]) ?></td>
-                        <td data-label="email"><?= htmlspecialchars($usuario["email"]) ?></td>
-                        <td data-label="intereses">
+                        <td data-label="Nombre"><?= htmlspecialchars($usuario["nombre"]) ?></td>
+                        <td data-label="Email"><?= htmlspecialchars($usuario["email"]) ?></td>
+                        <td data-label="Intereses">
                             <?php
                             $interesesRaw = $usuario["intereses"] ?? [];
 
@@ -86,10 +86,10 @@ $usuarios = $database->usuarios->find(["tipo_usuario" => "voluntario"]);
                             ?>
                         </td>
 
-                        <td data-label="habilidades"><?= htmlspecialchars($usuario["habilidades"] ?? '') ?></td>
-                        <td data-label="ciudad"><?= htmlspecialchars($usuario["ciudad"] ?? '') ?></td>
-                        <td data-label="telefono"><?= htmlspecialchars($usuario["telefono"] ?? '') ?></td>
-                        <td data-label="acción">
+                        <td data-label="Habilidades"><?= htmlspecialchars($usuario["habilidades"] ?? '') ?></td>
+                        <td data-label="Ciudad"><?= htmlspecialchars($usuario["ciudad"] ?? '') ?></td>
+                        <td data-label="Telefono"><?= htmlspecialchars($usuario["telefono"] ?? '') ?></td>
+                        <td data-label="Acción">
                             <a class="btn-eliminar" href="voluntario.php?eliminar=<?= $usuario["_id"] ?>" onclick="return confirm('¿Seguro que deseas eliminar este usuario?')">Eliminar</a>
                         </td>
                     </tr>

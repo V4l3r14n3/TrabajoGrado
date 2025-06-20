@@ -163,10 +163,12 @@ $blogs = $coleccion->find([], ['sort' => ['fecha_creacion' => -1]]);
             <tbody>
                 <?php foreach ($blogs as $index => $blog): ?>
                     <tr>
-                        <td><?= htmlspecialchars($blog["titulo"]) ?></td>
-                        <td><a class="btn-ver" href="#" onclick="mostrarModal('contenido<?= $index ?>'); return false;">Ver</a></td>
-                        <td><?= htmlspecialchars($blog["nombre_organizacion"] ?? 'Desconocida') ?></td>
-                        <td>
+                        <td data-label="Titulo"><?= htmlspecialchars($blog["titulo"]) ?></td>
+                        <td data-label="Contenido">
+                            <?= nl2br(htmlspecialchars(mb_strimwidth($blog["contenido"], 0, 150, "..."))) ?>
+                        </td>
+                        <td data-label="Organización"><?= htmlspecialchars($blog["nombre_organizacion"] ?? 'Desconocida') ?></td>
+                        <td data-label="Fecha">
                             <?php
                             if (isset($blog["fecha_creacion"])) {
                                 $fechaUTC = $blog["fecha_creacion"]->toDateTime();
@@ -177,26 +179,17 @@ $blogs = $coleccion->find([], ['sort' => ['fecha_creacion' => -1]]);
                             }
                             ?>
                         </td>
-                        <td>
+                        <td data-label="Imágenes">
                             <?php if (!empty($blog["imagenes"])): ?>
                                 <a class="btn-img" href="#" onclick="mostrarModal('imagenes<?= $index ?>'); return false;">Ver imágenes</a>
                             <?php else: ?>
                                 No disponible
                             <?php endif; ?>
                         </td>
-                        <td>
+                        <td data-label="Acción">
                             <a class="btn-eliminar" href="blogs.php?eliminar=<?= $blog["_id"] ?>" onclick="return confirm('¿Seguro que deseas eliminar este blog?')">Eliminar</a>
                         </td>
                     </tr>
-
-                    <!-- Modal de Contenido -->
-                    <div id="contenido<?= $index ?>" class="modal">
-                        <div class="modal-content">
-                            <button class="modal-close" onclick="cerrarModal('contenido<?= $index ?>')">X</button>
-                            <h2><?= htmlspecialchars($blog["titulo"]) ?></h2>
-                            <p><?= nl2br(htmlspecialchars($blog["contenido"])) ?></p>
-                        </div>
-                    </div>
 
                     <!-- Modal de Imágenes -->
                     <?php if (!empty($blog["imagenes"])): ?>
