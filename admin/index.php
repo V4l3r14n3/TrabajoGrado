@@ -14,11 +14,10 @@ if (!isset($_SESSION["usuario"]) || $_SESSION["usuario"]["tipo_usuario"] !== "ad
 $coleccion = $database->usuarios;
 $coleccionNotificaciones = $database->notificaciones;
 
-// Procesar formulario si se envió
+// Procesar formulario
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"], $_POST["accion"])) {
     $idOrg = $_POST["id"];
     $accion = $_POST["accion"];
-
     $estado = "";
     $mensaje = "";
 
@@ -26,23 +25,40 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"], $_POST["accion"
         $estado = "aprobado";
         $verificado = true;
         $mensaje = "✅ Tu solicitud de verificación ha sido aprobada. Ya puedes acceder al sistema como organización verificada.";
+
+        $coleccion->updateOne(
+            ["_id" => new ObjectId($idOrg)],
+            [
+                '$set' => [
+                    "estado_verificacion" => $estado,
+                    "verificado" => $verificado
+                ],
+                '$unset' => [
+                    "documento_rechazado" => "" // limpiar rechazo previo
+                ]
+            ]
+        );
+
     } elseif ($accion === "rechazar" && !empty(trim($_POST["mensaje_rechazo"]))) {
         $estado = "rechazado";
         $verificado = false;
         $mensaje = "❌ Tu solicitud de verificación ha sido rechazada. Motivo: " . trim($_POST["mensaje_rechazo"]);
-    }
 
-    if ($estado && $mensaje) {
-        // Actualiza estado del usuario
+        $orgActual = $coleccion->findOne(["_id" => new ObjectId($idOrg)]);
+        $documentoActual = $orgActual["documento_link"] ?? null;
+
         $coleccion->updateOne(
             ["_id" => new ObjectId($idOrg)],
             ['$set' => [
                 "estado_verificacion" => $estado,
-                "verificado" => $verificado
+                "verificado" => $verificado,
+                "documento_rechazado" => $documentoActual
             ]]
         );
+    }
 
-        // Inserta notificación
+    // Notificación
+    if ($estado && $mensaje) {
         $coleccionNotificaciones->insertOne([
             "id_usuario" => new ObjectId($idOrg),
             "mensaje" => $mensaje,
@@ -51,18 +67,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"], $_POST["accion"
         ]);
     }
 
-    // Redireccionar para evitar reenvío del formulario
     header("Location: index.php");
     exit();
 }
 
-// Obtener organizaciones con estado pendiente o rechazado
+// Mostrar organizaciones pendientes o rechazadas con nuevo documento
 $organizaciones = $coleccion->find([
     "tipo_usuario" => "organizacion",
-    "estado_verificacion" => ['$in' => ["pendiente", "rechazado"]]
+    '$or' => [
+        ["estado_verificacion" => "pendiente"],
+        [
+            "estado_verificacion" => "rechazado",
+            '$expr' => [
+                '$ne' => ['$documento_link', '$documento_rechazado']
+            ]
+        ]
+    ]
 ]);
 
-// Contar cuántas están pendientes
 $pendientes = $coleccion->count([
     "tipo_usuario" => "organizacion",
     "estado_verificacion" => "pendiente"
@@ -71,11 +93,10 @@ $pendientes = $coleccion->count([
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administración - Verificación de Organizaciones</title>
+    <title>Administración - Verificación</title>
     <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
@@ -88,9 +109,7 @@ $pendientes = $coleccion->count([
     <?php if ($pendientes > 0): ?>
         <div class="alerta">Hay <strong><?= $pendientes ?></strong> organización(es) pendientes de verificación.</div>
     <?php else: ?>
-        <div class="alerta" style="background-color: #d4edda; color: #155724; border-color: #c3e6cb;">
-            No hay organizaciones pendientes de verificación.
-        </div>
+        <div class="alerta" style="background-color: #d4edda; color: #155724;">No hay organizaciones pendientes.</div>
     <?php endif; ?>
 
     <table>
@@ -106,22 +125,17 @@ $pendientes = $coleccion->count([
         <tbody>
             <?php foreach ($organizaciones as $org): ?>
                 <tr>
-                    <td data-label="Nombre">
-                        <?= htmlspecialchars($org["nombre"] ?? "Sin nombre") ?>
-                        <?php if (($org["estado_verificacion"] ?? "") === "aprobado"): ?>
-                            ✅
-                        <?php endif; ?>
-                    </td>
-                    <td data-label="Correo"><?= htmlspecialchars($org["email"] ?? "Sin correo") ?></td>
-                    <td data-label="Documento">
+                    <td><?= htmlspecialchars($org["nombre"] ?? "Sin nombre") ?></td>
+                    <td><?= htmlspecialchars($org["email"] ?? "Sin correo") ?></td>
+                    <td>
                         <?php if (!empty($org["documento_link"])): ?>
                             <a href="<?= htmlspecialchars($org["documento_link"]) ?>" target="_blank">Ver Enlace</a>
                         <?php else: ?>
                             No disponible
                         <?php endif; ?>
                     </td>
-                    <td data-label="Estado"><?= ucfirst($org["estado_verificacion"] ?? "pendiente") ?></td>
-                    <td data-label="Acciones">
+                    <td><?= ucfirst($org["estado_verificacion"] ?? "pendiente") ?></td>
+                    <td>
                         <form method="POST" style="display:inline;">
                             <input type="hidden" name="id" value="<?= $org["_id"] ?>">
                             <input type="hidden" name="accion" value="aprobar">
