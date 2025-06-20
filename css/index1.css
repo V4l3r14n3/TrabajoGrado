@@ -6,10 +6,9 @@ body {
     background-color: #f8f9fa;
 }
 
+/* Header y Navbar */
 header {
     background-color: #007bff;
-    padding: 0;
-    height: auto;
 }
 
 nav {
@@ -17,10 +16,11 @@ nav {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 10px 20px;
+    padding: 10px 30px;
+    background-color: #007bff;
 }
 
-
+/* Logo y nombre juntos */
 .logo-container {
     display: flex;
     align-items: center;
@@ -35,11 +35,13 @@ nav {
 }
 
 .logo-text {
-    font-size: 1.5em;
+    font-size: 1.4em;
     font-weight: bold;
     color: white;
+    margin: 0;
 }
 
+/* Menú principal */
 nav ul {
     list-style: none;
     padding: 0;
@@ -260,33 +262,32 @@ footer {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
     .logo {
-    height: 30px;
-    margin-right: 8px;
+        height: 30px;
     }
 
     .logo-text {
         font-size: 1.2em;
     }
-    nav {
-        flex-direction: row;
-        justify-content: space-between;
-    }
 
     .menu-toggle {
         display: block;
-        margin-left: auto;
-        margin-right: 0;
+        align-self: flex-end;
+        margin-top: -40px;
     }
 
     nav ul {
         display: none;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         background-color: #007bff;
-        padding: 10px 0;
-        margin: 0;
         width: 100%;
+        padding: 10px 20px;
     }
 
     nav ul.show {

@@ -12,12 +12,13 @@
 <body>
     <header>
         <nav>
-            <a href="index.php" class="logo-container">
+            <div class="logo-container">
                 <img src="img/logo.png" alt="Logo" class="logo">
                 <span class="logo-text">Volunteero</span>
-            </a>
+            </div>
 
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
             <ul id="menu">
                 <li><a href="index.php">Inicio</a></li>
                 <li><a href="registro.php">Registro</a></li>
@@ -25,9 +26,8 @@
                 <li><a href="nosotros.php">Sobre Nosotros</a></li>
             </ul>
         </nav>
-
-
     </header>
+
 
     <main class="container">
         <section class="hero">
