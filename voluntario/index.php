@@ -47,6 +47,14 @@ $oportunidades = $coleccion->find([], [
 
 <body>
     <?php include 'navbar_voluntario.php'; ?>
+    <?php if ($mensajeGuardado): ?>
+        <div class="toast success show">Pregunta de seguridad guardada correctamente.</div>
+        <script>
+            setTimeout(() => {
+                document.querySelector('.toast.success').classList.remove('show');
+            }, 4000);
+        </script>
+    <?php endif; ?>
 
     <main class="container">
         <section class="hero">

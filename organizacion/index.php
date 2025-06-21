@@ -28,22 +28,32 @@ if (!isset($_SESSION['usuario'])) {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma de Organizaciones</title>
     <link rel="stylesheet" href="../css/organizaciones.css">
 </head>
+
 <body>
     <!-- Barra de navegación -->
     <?php include 'navbar_org.php'; ?>
-    
+    <?php if ($mensajeGuardado): ?>
+        <div class="toast success show">Pregunta de seguridad guardada correctamente.</div>
+        <script>
+            setTimeout(() => {
+                document.querySelector('.toast.success').classList.remove('show');
+            }, 4000);
+        </script>
+    <?php endif; ?>
+
     <main class="container">
         <section class="hero">
             <h1>Bienvenido a la Plataforma de Organizaciones</h1>
             <p>Publica oportunidades de voluntariado y conecta con la comunidad.</p>
         </section>
-        
+
         <!-- Botón para abrir el modal -->
         <div style="text-align:center; margin-bottom: 30px;">
             <button class="btn-seguridad" onclick="document.getElementById('modalPregunta').style.display='block'">
@@ -75,7 +85,7 @@ if (!isset($_SESSION['usuario'])) {
                 </form>
             </div>
         </div>
-        
+
         <section class="features">
             <div class="feature-card" onclick="window.location.href='publicar.php';">
                 <img src="../img/publicar.jpg" alt="Publicar oportunidades">
@@ -94,9 +104,10 @@ if (!isset($_SESSION['usuario'])) {
             </div>
         </section>
     </main>
-    
+
     <footer>
         <p>&copy; 2024 Plataforma de Voluntariado. Todos los derechos reservados.</p>
     </footer>
 </body>
+
 </html>

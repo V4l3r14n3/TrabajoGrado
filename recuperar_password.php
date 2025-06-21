@@ -53,11 +53,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 
 <body>
+
     <?php if ($mensaje): ?>
-        <div class="toast show"><?= $mensaje ?></div>
+        <div class="toast success show"><?= $mensaje ?></div>
         <script>
             setTimeout(() => {
-                document.querySelector('.toast').classList.remove('show');
+                document.querySelector('.toast.success').classList.remove('show');
+                window.location.href = "login.php";
+            }, 4000);
+        </script>
+    <?php elseif ($error): ?>
+        <div class="toast error show"><?= $error ?></div>
+        <script>
+            setTimeout(() => {
+                document.querySelector('.toast.error').classList.remove('show');
             }, 4000);
         </script>
     <?php endif; ?>
@@ -65,12 +74,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <div class="recover-container">
         <div class="recover-box">
             <h2>Recuperar Contraseña</h2>
-
-            <?php if ($mensaje): ?>
-                <p class="success-message"><?= $mensaje ?></p>
-            <?php elseif ($error): ?>
-                <p class="error-message"><?= $error ?></p>
-            <?php endif; ?>
 
             <form method="POST">
                 <div class="input-container">
@@ -93,23 +96,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <button type="submit" class="recover-button">Actualizar Contraseña</button>
             </form>
 
-            <!-- Muestra solo el toast arriba -->
             <?php if ($mensaje): ?>
-                <div class="toast show"><?= $mensaje ?></div>
-                <script>
-                    setTimeout(() => {
-                        document.querySelector('.toast').classList.remove('show');
-                    }, 4000);
-                </script>
+                <button type="button" class="back-login-button" onclick="window.location.href='login.php'">Volver al Login</button>
             <?php endif; ?>
-
-            <!-- Dentro del recover-box -->
-            <?php if ($error): ?>
-                <p class="error-message"><?= $error ?></p>
-            <?php endif; ?>
-
         </div>
     </div>
 </body>
-
 </html>
