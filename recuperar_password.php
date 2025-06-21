@@ -68,7 +68,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <?php if ($mostrarPregunta && isset($pregunta)): ?>
                     <p><strong><?= htmlspecialchars($pregunta) ?></strong></p>
+                    <i class="fas fa-user-edit"></i>
                     <input type="text" name="respuesta" placeholder="Tu respuesta" required>
+                    <i class="fas fa-password"></i>
                     <input type="password" name="nueva_password" placeholder="Nueva contraseña" required>
                 <?php endif; ?>
 
