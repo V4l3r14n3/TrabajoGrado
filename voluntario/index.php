@@ -113,13 +113,11 @@ $oportunidades = $coleccion->find([], [
                 <?php endforeach; ?>
             </div>
 
-            <!-- Controles de navegación -->
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
-
-            <!-- Paginación -->
             <div class="swiper-pagination"></div>
         </section>
+
     </main>
 
 
