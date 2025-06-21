@@ -62,7 +62,7 @@ $oportunidades = $coleccion->find([], [
             <div class="modal-content">
                 <span class="close" onclick="document.getElementById('modalPregunta').style.display='none'">&times;</span>
                 <h3>Establecer pregunta de seguridad</h3>
-                <form method="POST" action="guardar_pregunta.php">
+                <form method="POST" action="../guardar_pregunta.php">
                     <select name="pregunta" required>
                         <option value="">Seleccione una pregunta</option>
                         <option>¿Cuál es el nombre de tu primera mascota?</option>
@@ -71,14 +71,12 @@ $oportunidades = $coleccion->find([], [
                     </select>
                     <input type="text" name="respuesta" placeholder="Respuesta" required>
                     <?php if ($mostrarConfigPregunta): ?>
-                        <!-- Botón para abrir el modal -->
                         <div style="text-align: center; margin: 20px 0;">
-                            <button onclick="document.getElementById('modalPregunta').style.display='block'">
+                            <button class="btn-seguridad" onclick="document.getElementById('modalPregunta').style.display='block'">
                                 Configurar pregunta de seguridad
                             </button>
                         </div>
                     <?php endif; ?>
-
                 </form>
             </div>
         </div>
