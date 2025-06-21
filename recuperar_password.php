@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST["email"] ?? null;
     $respuesta = $_POST["respuesta"] ?? null;
     $nuevaPass = $_POST["nueva_password"] ?? null;
+    $confirmarPass = $_POST["confirmar_password"] ?? null;
 
     $usuario = $database->usuarios->findOne(['email' => $email]);
 
@@ -23,14 +24,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if (isset($respuesta)) {
             if (password_verify($respuesta, $usuario["respuesta_seguridad"])) {
-                $nuevoHash = password_hash($nuevaPass, PASSWORD_DEFAULT);
-                $result = $database->usuarios->updateOne(
-                    ['email' => $email],
-                    ['$set' => ['password' => $nuevoHash]]
-                );
-
-                $mensaje = "Contraseña actualizada correctamente.";
-                $mostrarPregunta = false;
+                if (strlen($nuevaPass) < 8) {
+                    $error = "La contraseña debe tener al menos 8 caracteres.";
+                    $mostrarPregunta = true;
+                } elseif ($nuevaPass !== $confirmarPass) {
+                    $error = "Las contraseñas no coinciden.";
+                    $mostrarPregunta = true;
+                } else {
+                    $nuevoHash = password_hash($nuevaPass, PASSWORD_DEFAULT);
+                    $database->usuarios->updateOne(
+                        ['email' => $email],
+                        ['$set' => ['password' => $nuevoHash]]
+                    );
+                    $mensaje = "Contraseña actualizada correctamente.";
+                    $mostrarPregunta = false;
+                }
             } else {
                 $error = "La respuesta de seguridad no es correcta.";
                 $mostrarPregunta = true;
@@ -75,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div class="recover-box">
             <h2>Recuperar Contraseña</h2>
 
-            <form method="POST">
+            <form method="POST" id="formRecuperar">
                 <div class="input-container">
                     <i class="fas fa-envelope"></i>
                     <input type="email" name="email" placeholder="Email" required value="<?= htmlspecialchars($email) ?>">
@@ -89,7 +97,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     </div>
                     <div class="input-container">
                         <i class="fas fa-lock"></i>
-                        <input type="password" name="nueva_password" placeholder="Nueva contraseña" required>
+                        <input type="password" name="nueva_password" id="nueva_password" placeholder="Nueva contraseña (mín. 8 caracteres)" required>
+                    </div>
+                    <div class="input-container">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="confirmar_password" id="confirmar_password" placeholder="Confirmar contraseña" required>
                     </div>
                 <?php endif; ?>
 
@@ -101,6 +113,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </form>
         </div>
     </div>
-</body>
 
+    <!-- Validación en JS -->
+    <script>
+        document.getElementById("formRecuperar").addEventListener("submit", function (e) {
+            const pass = document.getElementById("nueva_password").value;
+            const confirm = document.getElementById("confirmar_password").value;
+
+            if (pass.length < 8) {
+                alert("La contraseña debe tener al menos 8 caracteres.");
+                e.preventDefault();
+                return;
+            }
+
+            if (pass !== confirm) {
+                alert("Las contraseñas no coinciden.");
+                e.preventDefault();
+                return;
+            }
+        });
+    </script>
+
+</body>
 </html>
