@@ -44,12 +44,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Recuperar Contraseña</title>
     <link rel="stylesheet" href="css/recuperar_pass.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
+
 <body>
     <?php if ($mensaje): ?>
         <div class="toast show"><?= $mensaje ?></div>
@@ -91,10 +93,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <button type="submit" class="recover-button">Actualizar Contraseña</button>
             </form>
 
+            <!-- Muestra solo el toast arriba -->
             <?php if ($mensaje): ?>
-                <button type="button" class="back-login-button" onclick="window.location.href='login.php'">Volver al Login</button>
+                <div class="toast show"><?= $mensaje ?></div>
+                <script>
+                    setTimeout(() => {
+                        document.querySelector('.toast').classList.remove('show');
+                    }, 4000);
+                </script>
             <?php endif; ?>
+
+            <!-- Dentro del recover-box -->
+            <?php if ($error): ?>
+                <p class="error-message"><?= $error ?></p>
+            <?php endif; ?>
+
         </div>
     </div>
 </body>
+
 </html>

@@ -55,7 +55,11 @@ $oportunidades = $coleccion->find([], [
         </section>
 
         <!-- Botón para abrir el modal -->
-        <button onclick="document.getElementById('modalPregunta').style.display='block'">Configurar pregunta de seguridad</button>
+        <div style="text-align:center; margin-bottom: 30px;">
+            <button class="btn-seguridad" onclick="document.getElementById('modalPregunta').style.display='block'">
+                Configurar pregunta de seguridad
+            </button>
+        </div>
 
         <!-- Modal -->
         <div id="modalPregunta" class="modal">
@@ -77,6 +81,7 @@ $oportunidades = $coleccion->find([], [
                             </button>
                         </div>
                     <?php endif; ?>
+
                 </form>
             </div>
         </div>
