@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Recuperar Contraseña</title>
-    <link rel="stylesheet" href="css/recuperar_pass.css">
+    <link rel="stylesheet" href="css/recuperar_password.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 
@@ -94,12 +94,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <?php endif; ?>
 
                 <button type="submit" class="recover-button">Actualizar Contraseña</button>
-            </form>
 
-            <?php if ($mensaje): ?>
-                <button type="button" class="back-login-button" onclick="window.location.href='login.php'">Volver al Login</button>
-            <?php endif; ?>
+                <?php if ($mensaje): ?>
+                    <button type="button" class="back-login-button" onclick="window.location.href='login.php'">Volver al Login</button>
+                <?php endif; ?>
+            </form>
         </div>
     </div>
 </body>
+
 </html>
