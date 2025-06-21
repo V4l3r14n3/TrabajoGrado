@@ -59,11 +59,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         .error-text {
-            color: #ffbaba;
+            color: #ff4d4d;
             font-size: 0.9em;
             margin: 5px 0 -10px 5px;
             text-align: left;
             display: none;
+            background: transparent;
         }
 
         .error-text.visible {
