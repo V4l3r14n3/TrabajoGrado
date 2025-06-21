@@ -14,6 +14,16 @@ if (isset($_SESSION['usuario'])) {
         $mostrarConfigPregunta = true;
     }
 }
+$mensajeGuardado = false;
+if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'pregunta_guardada') {
+    $mensajeGuardado = true;
+}
+
+// Si el usuario no está logueado, redirigir al login
+if (!isset($_SESSION['usuario'])) {
+    header("Location: ../login.php");
+    exit();
+}
 
 // Obtener las últimas 4 oportunidades
 $coleccion = $database->oportunidades;
