@@ -5,6 +5,9 @@ session_start();
 $usuario = null;
 $mostrarPregunta = false;
 $pregunta = "";
+$email = "";
+$mensaje = "";
+$error = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = $_POST["email"] ?? null;
@@ -19,7 +22,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $pregunta = $usuario["pregunta_seguridad"] ?? null;
 
         if (isset($respuesta)) {
-            // Validar respuesta
             if (password_verify($respuesta, $usuario["respuesta_seguridad"])) {
                 $nuevoHash = password_hash($nuevaPass, PASSWORD_DEFAULT);
                 $result = $database->usuarios->updateOne(
@@ -28,57 +30,71 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 );
 
                 $mensaje = "Contraseña actualizada correctamente.";
+                $mostrarPregunta = false;
             } else {
                 $error = "La respuesta de seguridad no es correcta.";
                 $mostrarPregunta = true;
             }
         } else {
-            // Mostrar la pregunta de seguridad
             $mostrarPregunta = true;
         }
     }
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <title>Recuperar Contraseña</title>
     <link rel="stylesheet" href="css/recuperar_pass.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-
 </head>
-
 <body>
+    <?php if ($mensaje): ?>
+        <div class="toast show"><?= $mensaje ?></div>
+        <script>
+            setTimeout(() => {
+                document.querySelector('.toast').classList.remove('show');
+            }, 4000);
+        </script>
+    <?php endif; ?>
+
     <div class="recover-container">
         <div class="recover-box">
             <h2>Recuperar Contraseña</h2>
 
-            <?php if (isset($mensaje)) echo "<p class='success-message'>$mensaje</p>"; ?>
-            <?php if (isset($error)) echo "<p class='error-message'>$error</p>"; ?>
+            <?php if ($mensaje): ?>
+                <p class="success-message"><?= $mensaje ?></p>
+            <?php elseif ($error): ?>
+                <p class="error-message"><?= $error ?></p>
+            <?php endif; ?>
 
             <form method="POST">
                 <div class="input-container">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" name="email" placeholder="Email" required value="<?= htmlspecialchars($email ?? '') ?>">
+                    <input type="email" name="email" placeholder="Email" required value="<?= htmlspecialchars($email) ?>">
                 </div>
 
-                <?php if ($mostrarPregunta && isset($pregunta)): ?>
+                <?php if ($mostrarPregunta && $pregunta): ?>
                     <p><strong><?= htmlspecialchars($pregunta) ?></strong></p>
-                    <i class="fas fa-user-edit"></i>
-                    <input type="text" name="respuesta" placeholder="Tu respuesta" required>
-                    <i class="fas fa-password"></i>
-                    <input type="password" name="nueva_password" placeholder="Nueva contraseña" required>
+                    <div class="input-container">
+                        <i class="fas fa-question-circle"></i>
+                        <input type="text" name="respuesta" placeholder="Tu respuesta" required>
+                    </div>
+                    <div class="input-container">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="nueva_password" placeholder="Nueva contraseña" required>
+                    </div>
                 <?php endif; ?>
 
-                <button type="submit">Actualizar Contraseña</button>
+                <button type="submit" class="recover-button">Actualizar Contraseña</button>
             </form>
 
+            <?php if ($mensaje): ?>
+                <button type="button" class="back-login-button" onclick="window.location.href='login.php'">Volver al Login</button>
+            <?php endif; ?>
         </div>
     </div>
 </body>
-
 </html>
