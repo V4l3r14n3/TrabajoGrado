@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $database->notificaciones->insertOne([
                             'id_usuario' => $admin['_id'],
                             'tipo' => 'nueva_oportunidad',
-                            'mensaje' => "🔔 La organización {$nombreOrganizacion} ha publicado una nueva oportunidad: {$titulo}.",
+                            'mensaje' => "🔔 La organización {$nombre_organizacion} ha publicado una nueva oportunidad: {$titulo}.",
                             'fecha' => new UTCDateTime(),
                             'leido' => false
                         ]);
