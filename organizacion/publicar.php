@@ -68,6 +68,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($resultado->getInsertedCount() > 0) {
                     $mensaje = "✅ Oportunidad creada con éxito.";
 
+                    // Obtener nombre de la organización
+                    $nombre_organizacion = $_SESSION["usuario"]["organizacion"] ?? "Organización Desconocida";
+
                     // Notificar dinámicamente a todos los admins
                     $admins = $database->usuarios->find(['tipo_usuario' => 'admin']);
 
